@@ -1,9 +1,4 @@
-# SGSITS MUN 2026 — Next.js site
-
-Structural rebuild of sabarmatimun.com's homepage pattern (hero → theme pillars →
-committees → secretariat → ways-in → contact/footer), recolored to your palette
-(`#f8f0e5` cream / `#082052` navy) and filled with SGSITS MUN / DIGIT content.
-
+# SGSITS MUN 2026 
 ## Run it
 
 ```bash
