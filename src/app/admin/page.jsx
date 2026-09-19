@@ -85,16 +85,26 @@ function EditionsTab() {
     e.preventDefault();
     if (!selectedId || files.length === 0) return;
     setStatus(`Uploading 0/${files.length}…`);
+    let failCount = 0;
     for (let i = 0; i < files.length; i++) {
       const base64 = await fileToBase64(files[i]);
-      await fetch("/api/upload", {
+      const res = await fetch("/api/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ file: base64, editionId: selectedId }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.error("Upload failed:", data.error);
+        failCount++;
+      }
       setStatus(`Uploading ${i + 1}/${files.length}…`);
     }
-    setStatus("Done. Photos uploaded.");
+    setStatus(
+      failCount === 0
+        ? "Done. Photos uploaded."
+        : `Done with errors: ${failCount} of ${files.length} failed. Check browser console for details.`
+    );
     setFiles([]);
   }
 
@@ -213,11 +223,17 @@ function SecretariatTab() {
     if (!file) return;
     setStatus("Uploading photo…");
     const base64 = await fileToBase64(file);
-    await fetch("/api/secretariat/photo", {
+    const res = await fetch("/api/secretariat/photo", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ file: base64, memberId }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setStatus(`Upload failed: ${data.error || "unknown error"}`);
+      console.error("Secretariat photo upload failed:", data.error);
+      return;
+    }
     setStatus("Photo uploaded.");
     await load();
   }
