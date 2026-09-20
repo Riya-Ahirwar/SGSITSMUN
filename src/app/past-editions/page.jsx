@@ -30,7 +30,7 @@ export default async function PastEditionsPage() {
         <div className="border border-navy/15 rounded-2xl p-10 text-center text-navy/60">
           <p className="mb-2 font-semibold">No past editions added yet.</p>
           <p className="text-sm">
-            Once photos are uploaded via the admin upload route, they'll appear here automatically —
+            Once photos are uploaded via the admin upload route, they&apos;ll appear here automatically —
             this page reads live from the database.
           </p>
         </div>

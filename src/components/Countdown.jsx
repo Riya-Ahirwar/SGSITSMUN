@@ -25,24 +25,25 @@ export default function Countdown() {
 
   const units = [
     { key: "d", label: "Days" },
-    { key: "h", label: "Hrs" },
-    { key: "m", label: "Min" },
-    { key: "s", label: "Sec" },
+    { key: "h", label: "Hours" },
+    { key: "m", label: "Minutes" },
+    { key: "s", label: "Seconds" },
   ];
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-2 select-none">
       <div className="flex gap-3">
         {units.map((u) => (
-          <div key={u.key} className="flex flex-col items-center">
-            <div className="bg-navy text-cream rounded-lg w-16 h-16 flex items-center justify-center font-display text-2xl font-semibold">
+          <div key={u.key} className="group flex flex-col items-center cursor-default">
+            <div className="bg-navy text-cream rounded-xl w-16 h-16 flex items-center justify-center font-display text-2xl font-semibold border border-cream/10 shadow-md group-hover:scale-105 group-hover:border-[#7eb8f7]/50 group-hover:shadow-[0_0_20px_rgba(126,184,247,0.35)] transition-all duration-300">
               {t ? String(t[u.key]).padStart(2, "0") : "--"}
             </div>
-            <span className="text-xs mt-1 text-navy/70">{u.label}</span>
+            <span className="text-xs mt-1.5 text-cream/60 group-hover:text-cream/90 transition-colors duration-300 font-medium">
+              {u.label}
+            </span>
           </div>
         ))}
       </div>
-      <p className="text-sm text-navy/60">Until the first session opens</p>
     </div>
   );
 }
