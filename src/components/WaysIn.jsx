@@ -2,26 +2,65 @@ import { waysIn } from "@/data/site";
 
 export default function WaysIn() {
   return (
-    <section id="register" className="bg-navy text-cream px-6 py-24">
-      <div className="max-w-6xl mx-auto">
-        <p className="uppercase tracking-widest text-sm text-cream/60 mb-3">Get involved</p>
-        <h2 className="font-display text-4xl md:text-5xl mb-4">Four ways in.</h2>
-        <p className="max-w-2xl text-cream/70 mb-12">
-          Delegate registration opens soon. All other roles are open now.
-        </p>
+    <section id="register" className="relative bg-navy text-cream px-6 py-16 overflow-hidden">
+      {/* Ambient glow orbs */}
+      <div className="pointer-events-none absolute -top-32 -left-32 w-72 h-72 rounded-full bg-cream/10 blur-[100px]" />
+      <div className="pointer-events-none absolute -bottom-32 -right-16 w-80 h-80 rounded-full bg-cream/5 blur-[110px]" />
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          {waysIn.map((w) => (
+      <div className="relative max-w-5xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-8">
+          <div>
+            <p className="uppercase tracking-widest text-xs text-cream/50 mb-2">Get involved</p>
+            <h2 className="font-display text-2xl md:text-4xl">Four ways in.</h2>
+          </div>
+          <p className="max-w-xs text-cream/60 text-sm md:text-right">
+            Delegate registration opens soon. Every other role is open right now.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-3">
+          {waysIn.map((w, i) => (
             <a
               key={w.title}
               href={w.href}
-              className="grid-item flex flex-col gap-2 border border-cream/15 rounded-2xl p-6 hover:bg-cream/5 transition"
+              className="group relative rounded-2xl p-[1px] overflow-hidden transition-transform duration-300 hover:-translate-y-0.5"
             >
-              <span className="font-semibold flex items-center justify-between">
-                {w.title} <span aria-hidden>→</span>
-              </span>
-              <span className="text-sm text-cream/60">{w.desc}</span>
-              <span className="text-xs uppercase tracking-wide text-cream/40 mt-1">{w.status}</span>
+              {/* Animated gradient border, revealed on hover */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, #f8f0e5, transparent 30%, transparent 70%, #f8f0e5)",
+                }}
+              />
+
+              <div className="relative bg-navy rounded-[calc(1rem-1px)] p-5 h-full flex flex-col gap-3 border border-cream/10 group-hover:border-transparent transition-colors">
+                <div className="flex items-start justify-between">
+                  <span className="font-display text-2xl text-cream/15 group-hover:text-cream/25 transition-colors">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className="flex items-center justify-center w-8 h-8 rounded-full border border-cream/20 text-sm
+                               group-hover:bg-cream group-hover:text-navy group-hover:border-cream
+                               group-hover:rotate-45 transition-all duration-300"
+                    aria-hidden
+                  >
+                    →
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-1 mt-auto">
+                  <h3 className="font-display text-lg md:text-xl group-hover:translate-x-1 transition-transform duration-300">
+                    {w.title}
+                  </h3>
+                  <p className="text-xs text-cream/60 leading-relaxed">{w.desc}</p>
+                </div>
+
+                <span className="inline-flex w-fit items-center gap-1.5 text-[10px] uppercase tracking-wide text-cream/50 border border-cream/15 rounded-full px-2.5 py-1">
+                  <span className="w-1 h-1 rounded-full bg-cream/50 group-hover:bg-emerald-400 transition-colors" />
+                  {w.status}
+                </span>
+              </div>
             </a>
           ))}
         </div>
