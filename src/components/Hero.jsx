@@ -6,6 +6,8 @@ import gsap from "gsap";
 import Countdown from "./Countdown";
 import { event } from "@/data/site";
 import AnimatedGridBackground from "./AnimatedGridBackground";
+import HeroImageCarousel from "./HeroImageCarousel";
+
 
 const backgroundImages = [
   "/assets/hero-building.jpg",
@@ -46,8 +48,11 @@ export default function Hero() {
         />
       ))}
 
-      {/* Dark navy wash over the photo for deep dark contrast */}
-      <div className="absolute inset-0 -z-10 bg-[#040e24]/90" />
+      {/* ── Scrolling gallery images (deepest layer) ─────────────── */}
+      <HeroImageCarousel />
+
+      {/* Dark navy wash — lightened so carousel images show through */}
+      <div className="absolute inset-0 -z-10 bg-[#040e24]/60" />
 
       <AnimatedGridBackground />
 
