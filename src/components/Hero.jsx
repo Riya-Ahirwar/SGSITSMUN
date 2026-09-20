@@ -65,40 +65,52 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative max-w-4xl mx-auto text-center flex flex-col items-center gap-8 text-cream">
+      <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center gap-6 text-cream">
         <Image src="/assets/logo.jpg" alt="SGSITS MUN" width={90} height={90} className="rounded-full" />
 
-        <p className="uppercase tracking-widest text-sm text-cream/70">
-          Edition 2026 · SGSITS Indore
+        {/* Edition tag */}
+        <p className="uppercase tracking-[0.25em] text-sm text-cream/70 font-medium">
+          Edition 2026 &bull; Indore
         </p>
-        <h1 className="font-display text-5xl md:text-7xl leading-tight">
-          Where debate <br />
-          becomes <em className="italic text-cream/90">direction.</em>
+
+        {/* Main heading — single line, "direction" in sky blue */}
+        <h1 className="font-display text-5xl md:text-7xl font-bold leading-tight">
+          Where debate becomes{" "}
+          <em className="not-italic italic" style={{ color: "#7eb8f7" }}>direction.</em>
         </h1>
-        <p className="max-w-xl text-cream/80">
-          {event.name} — {event.theme}. Two days, three committees, and a room full of
-          people about to discover what they are capable of.
+
+        {/* Tagline replacing long paragraph */}
+        <p className="uppercase tracking-[0.2em] text-sm text-cream/60 font-medium -mt-2">
+          Ideas Today.&nbsp; Impact Tomorrow.
         </p>
 
-        <div className="bg-cream/10 rounded-2xl p-6">
-          <Countdown />
-        </div>
+        {/* Countdown — no box wrapper */}
+        <Countdown />
 
+        {/* CTA buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
-          <a href="#register" className="bg-cream text-navy px-6 py-3 rounded-full font-semibold hover:bg-cream/90 transition">
-            Register as Delegate
+          <a href="#register" className="bg-cream text-navy px-7 py-3 rounded-full font-semibold hover:bg-cream/90 transition flex items-center gap-2">
+            Register as Delegate <span aria-hidden="true">→</span>
           </a>
-          <a href="#about" className="border border-cream/40 px-6 py-3 rounded-full font-semibold hover:bg-cream/10 transition">
+          <a href="#about" className="border border-cream/50 text-cream px-7 py-3 rounded-full font-semibold hover:bg-cream/10 transition">
             Learn more
           </a>
         </div>
 
-        <div className="flex flex-wrap gap-6 text-sm text-cream/70 pt-4">
-          <span>{event.dates}</span>
-          <span>·</span>
-          <span>{event.venue}</span>
-          <span>·</span>
-          <span>Three Committees</span>
+        {/* Bottom info row with icons */}
+        <div className="flex flex-wrap items-center justify-center gap-0 text-sm text-cream/60 pt-2 divide-x divide-cream/20">
+          <span className="flex items-center gap-2 px-5">
+            <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            {event.dates}
+          </span>
+          <span className="flex items-center gap-2 px-5">
+            <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            {event.venue}
+          </span>
+          <span className="flex items-center gap-2 px-5">
+            <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Three Committees
+          </span>
         </div>
       </div>
     </header>

@@ -25,9 +25,9 @@ export default function Countdown() {
 
   const units = [
     { key: "d", label: "Days" },
-    { key: "h", label: "Hrs" },
-    { key: "m", label: "Min" },
-    { key: "s", label: "Sec" },
+    { key: "h", label: "Hours" },
+    { key: "m", label: "Minutes" },
+    { key: "s", label: "Seconds" },
   ];
 
   return (
@@ -38,11 +38,10 @@ export default function Countdown() {
             <div className="bg-navy text-cream rounded-lg w-16 h-16 flex items-center justify-center font-display text-2xl font-semibold">
               {t ? String(t[u.key]).padStart(2, "0") : "--"}
             </div>
-            <span className="text-xs mt-1 text-navy/70">{u.label}</span>
+            <span className="text-xs mt-1 text-cream/60">{u.label}</span>
           </div>
         ))}
       </div>
-      <p className="text-sm text-navy/60">Until the first session opens</p>
     </div>
   );
 }
