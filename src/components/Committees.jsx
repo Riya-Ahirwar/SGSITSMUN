@@ -12,7 +12,7 @@ export default function Committees() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {committees.map((c) => (
-            <div key={c.name} className="bg-cream/5 border border-cream/15 rounded-2xl p-8 hover:bg-cream/10 transition">
+            <div key={c.name} className="grid-item bg-cream/5 border border-cream/15 rounded-2xl p-8 hover:bg-cream/10 transition">
               <span className="text-xs uppercase tracking-wide text-cream/50">{c.type}</span>
               <h3 className="font-display text-2xl mt-3 mb-1">{c.name}</h3>
               <p className="text-sm text-cream/60 mb-4">{c.tag}</p>

@@ -12,13 +12,13 @@ export default function Secretariat() {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
           {secretariat.map((m) => (
-            <div key={m.name} className="text-center">
+            <div key={m.name} className="grid-item text-center">
               <div className="w-24 h-24 mx-auto rounded-full bg-navy/10 flex items-center justify-center font-display text-xl text-navy/50 mb-4">
                 {m.name.split(" ").map((n) => n[0]).join("")}
               </div>
               <h3 className="font-semibold">{m.name}</h3>
               <p className="text-sm text-navy/60 mb-2">{m.role}</p>
-              <p className="text-xs text-navy/50 italic">"{m.quote}"</p>
+              <p className="text-xs text-navy/50 italic">&quot;{m.quote}&quot;</p>
             </div>
           ))}
         </div>
