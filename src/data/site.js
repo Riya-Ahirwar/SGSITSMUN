@@ -23,30 +23,40 @@ export const themePillars = [
 
 export const committees = [
   {
-    name: "Lok Sabha",
-    tag: "House of the People",
-    type: "Parliamentary",
-    desc: "India's lower house of Parliament — where legislation is contested, amended and passed.",
-  },
-  {
-    name: "SOCHUM",
-    tag: "Social, Cultural & Humanitarian",
-    type: "United Nations",
-    desc: "The UN's Third Committee takes on the hardest questions — rights, identity, displacement.",
-  },
-  {
-    name: "DISEC",
-    tag: "Disarmament & International Security",
-    type: "United Nations",
-    desc: "From nuclear arsenals to autonomous weapons systems, DISEC holds the debates that matter most.",
-  },
+  name: "Lok Sabha",
+  tag: "House of the People",
+  type: "Parliamentary",
+  desc: "India's lower house of Parliament — where legislation is debated, amended and passed by elected representatives.",
+},
+{
+  name: "Mahabharata",
+  tag: "The Great Indian Epic",
+  type: "Mythology & Literature",
+  desc: "One of India's foundational epics, following the Kuru dynasty and the devastating conflict between the Pandavas and Kauravas.",
+},
+{
+  name: "UNHRC",
+  tag: "United Nations Human Rights Council",
+  type: "United Nations",
+  desc: "The UN's principal human rights body examines violations, promotes fundamental freedoms and addresses urgent rights crises worldwide.",
+},
+{
+  name: "DISEC",
+  tag: "Disarmament & International Security",
+  type: "United Nations",
+  desc: "The UN's First Committee tackles global security challenges, from nuclear weapons and arms control to emerging military technologies.",
+},
+{
+  name: "UNODC",
+  tag: "United Nations Office on Drugs & Crime",
+  type: "United Nations",
+  desc: "The UN's leading forum on organized crime, illicit drugs, corruption and international criminal justice.",
+},
 ];
 
 export const secretariat = [
-  { name: "Surya Pratap Singh", role: "MUN-Coordinator", quote: "Leading the organization with vision and dedication", image: "/assets/placeholder-avatar.png" },
-  { name: "Rohan Singhal", role: "Secretary General", quote: "We welcome you to SGSITS MUN 2026!", image: "/assets/placeholder-avatar.png" },
-  { name: "Alkesh Rajput", role: "USG-Logistics", quote: "Ensuring everything runs smoothly behind the scenes", image: "/assets/placeholder-avatar.png" },
-  { name: "Yashvardhan Patel", role: "USG-Tech Affairs", quote: "The only way to win is to fight!", image: "/assets/placeholder-avatar.png" },
+  { name: "Surya Pratap Singh", role: "MUN-Coordinator", quote: "Leading the organization with vision and dedication", image: "/assets/Surya.jpg" },
+  { name: "Alkesh Rajput", role: "USG-Logistics", quote: "Ensuring everything runs smoothly behind the scenes", image: "/assets/Alkesh.jpg" },
   // Add remaining secretariat members here
 ];
 

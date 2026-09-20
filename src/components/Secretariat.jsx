@@ -11,6 +11,7 @@ export default function Secretariat() {
       <div className="pointer-events-none absolute -bottom-32 -left-16 w-80 h-80 rounded-full bg-navy/5 blur-[110px]" />
 
       <div className="relative max-w-6xl mx-auto">
+        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-10">
           <div>
             <p className="uppercase tracking-widest text-xs text-navy/50 mb-2">
@@ -28,6 +29,7 @@ export default function Secretariat() {
           </p>
         </div>
 
+        {/* Secretariat Grid */}
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
           {secretariat.map((m) => (
             <div
@@ -43,15 +45,27 @@ export default function Secretariat() {
                 }}
               />
 
+              {/* Card */}
               <div className="relative bg-cream rounded-[calc(1rem-1px)] p-6 h-full flex flex-col items-center text-center border border-navy/10 group-hover:border-transparent transition-colors">
                 {/* Avatar */}
-                <div className="w-20 h-20 rounded-full border border-navy/15 bg-navy/5 flex items-center justify-center font-display text-lg text-navy/60 mb-5 group-hover:bg-navy/10 group-hover:text-navy/80 transition-colors duration-300">
-                  {m.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
+                <div className="w-20 h-20 rounded-full border border-navy/15 bg-navy/5 overflow-hidden mb-5 flex items-center justify-center">
+                  {m.image ? (
+                    <img
+                      src={m.image}
+                      alt={m.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="font-display text-lg text-navy/60 group-hover:text-navy/80 transition-colors">
+                      {m.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </span>
+                  )}
                 </div>
 
+                {/* Member Information */}
                 <div className="flex flex-col gap-1">
                   <h3 className="font-display text-lg group-hover:-translate-y-px transition-transform duration-300">
                     {m.name}

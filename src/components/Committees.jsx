@@ -11,7 +11,7 @@ export default function Committees() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-10">
           <div>
             <p className="uppercase tracking-widest text-xs text-cream/50 mb-2">Delegate Desk</p>
-            <h2 className="font-display text-2xl md:text-4xl">Three rooms, three debates.</h2>
+            <h2 className="font-display text-2xl md:text-4xl">Five rooms, five debates.</h2>
           </div>
           <p className="max-w-sm text-cream/60 text-sm md:text-right">
             Each committee approaches DIGIT from a different angle. Choose your arena.

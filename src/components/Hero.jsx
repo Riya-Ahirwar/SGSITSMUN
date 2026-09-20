@@ -135,7 +135,7 @@ export default function Hero() {
           <span className="text-cream/20">|</span>
           <span className="flex items-center gap-2 px-4 py-1.5 rounded-full hover:bg-cream/10 hover:text-cream hover:shadow-[0_0_12px_rgba(126,184,247,0.2)] hover:scale-105 transition-all duration-300 cursor-default">
             <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Three Committees
+            Five Committees
           </span>
         </div>
       </div>
