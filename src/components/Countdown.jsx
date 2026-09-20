@@ -1,20 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
 import { event } from "@/data/site";
+import styles from "./Countdown.module.css";
 
 const SKIN = "cream";
 
 const TARGET = new Date(event.targetDate).getTime();
 
+const halfTop = `${styles.half} ${styles.top}`;
+const halfBot = `${styles.half} ${styles.bot}`;
+
 const UNITS = [
   { key: "d", label: "Days" },
-  { key: "h", label: "Hrs" },
-  { key: "m", label: "Min" },
-  { key: "s", label: "Sec" },
+  { key: "h", label: "Hours" },
+  { key: "m", label: "Minutes" },
+  { key: "s", label: "Seconds" },
 ];
 
-const INTRO_STEP_MS = 48;
-const INTRO_SPIN = 10;
+const INTRO_STEP_MS = 48; // match --flap-dur in .board[data-intro]
+const INTRO_SPIN = 10; // multiple of 10
 
 function introBoard(real, step) {
   let col = 0;
@@ -61,18 +65,18 @@ function Flap({ digit }) {
   const flipping = flap.prev !== flap.curr;
 
   const land = (e) => {
-    if (e.target !== e.currentTarget) return;
+    if (e.target !== e.currentTarget) return; // skip ::after shade events
     setFlap((f) => (f.prev === f.curr ? f : { ...f, prev: f.curr }));
   };
 
   return (
-    <div className="cd-flap">
-      <div className="cd-half cd-top"><span>{flap.curr}</span></div>
-            <div className="cd-half cd-bot"><span>{flap.prev}</span></div>
+    <div className={styles.flap}>
+      <div className={halfTop}><span>{flap.curr}</span></div>
+      <div className={halfBot}><span>{flap.prev}</span></div>
       {flipping && (
-        <div key={flap.id} className="cd-leaf" onAnimationEnd={land}>
-          <div className="cd-half cd-top"><span>{flap.prev}</span></div>
-          <div className="cd-half cd-bot"><span>{flap.curr}</span></div>
+        <div key={flap.id} className={styles.leaf} onAnimationEnd={land}>
+          <div className={halfTop}><span>{flap.prev}</span></div>
+          <div className={halfBot}><span>{flap.curr}</span></div>
         </div>
       )}
     </div>
@@ -81,7 +85,6 @@ function Flap({ digit }) {
 
 export default function Countdown() {
   const [time, setTime] = useState(null);
-
   const [step, setStep] = useState(0);
 
   useEffect(() => {
@@ -90,9 +93,7 @@ export default function Countdown() {
     const tick = () => {
       setTime(getRemaining());
       clearTimeout(id);
-
       if (document.hidden || TARGET - Date.now() <= 0) return;
-
       id = setTimeout(tick, 1000 - (Date.now() % 1000) + 20);
     };
 
@@ -127,23 +128,21 @@ export default function Countdown() {
   const shown = time && (rolling ? introBoard(time, step) : time);
 
   return (
-    <div className="cd-wrap">
-      <div className="cd-board" data-skin={SKIN} data-intro={rolling ? "" : undefined} aria-hidden="true">
+    <div className={styles.wrap}>
+      <div className={styles.board} data-skin={SKIN} data-intro={rolling ? "" : undefined} aria-hidden="true">
         {UNITS.map(({ key, label }) => (
-          <div key={key} className="cd-unit">
-            <div className="cd-digits">
+          <div key={key} className={styles.unit}>
+            <div className={styles.digits}>
               {shown
                 ? shown[key]
                     .split("")
-
                     .map((ch, i, all) => (
                       <Flap key={`${key}-${all.length - i}`} digit={ch} />
                     ))
                 : [0, 1].map((i) => (
-
-                    <div key={i} className="cd-flap">
-                      <div className="cd-half cd-top" />
-                      <div className="cd-half cd-bot" />
+                    <div key={i} className={styles.flap}>
+                      <div className={halfTop} />
+                      <div className={halfBot} />
                     </div>
                   ))}
             </div>
@@ -154,7 +153,7 @@ export default function Countdown() {
         ))}
       </div>
 
-            <p role="timer" className="sr-only">
+      <p role="timer" className="sr-only">
         {time
           ? `${plural(+time.d, "day")}, ${plural(+time.h, "hour")}, ${plural(+time.m, "minute")} until the first session opens`
           : ""}
