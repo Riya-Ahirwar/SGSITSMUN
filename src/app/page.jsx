@@ -5,10 +5,12 @@ import Committees from "@/components/Committees";
 import Secretariat from "@/components/Secretariat";
 import WaysIn from "@/components/WaysIn";
 import Footer from "@/components/Footer";
+import GlobalAnimations from "@/components/GlobalAnimations";
 
 export default function Home() {
   return (
     <>
+      <GlobalAnimations />
       <Nav />
       <Hero />
       <ThemePillars />

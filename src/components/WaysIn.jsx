@@ -15,7 +15,7 @@ export default function WaysIn() {
             <a
               key={w.title}
               href={w.href}
-              className="flex flex-col gap-2 border border-cream/15 rounded-2xl p-6 hover:bg-cream/5 transition"
+              className="grid-item flex flex-col gap-2 border border-cream/15 rounded-2xl p-6 hover:bg-cream/5 transition"
             >
               <span className="font-semibold flex items-center justify-between">
                 {w.title} <span aria-hidden>→</span>
