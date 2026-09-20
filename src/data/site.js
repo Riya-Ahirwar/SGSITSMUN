@@ -42,8 +42,10 @@ export const committees = [
 ];
 
 export const secretariat = [
+  { name: "Surya Pratap Singh", role: "MUN-Coordinator", quote: "Leading the organization with vision and dedication", image: "/assets/placeholder-avatar.png" },
   { name: "Rohan Singhal", role: "Secretary General", quote: "We welcome you to SGSITS MUN 2026!", image: "/assets/placeholder-avatar.png" },
-  { name: "Anya Agrawal", role: "Deputy Secretary General", quote: "Together, we will make this event a success.", image: "/assets/placeholder-avatar.png" },
+  { name: "Alkesh Rajput", role: "USG-Logistics", quote: "Ensuring everything runs smoothly behind the scenes", image: "/assets/placeholder-avatar.png" },
+  { name: "Yashvardhan Patel", role: "USG-Tech Affairs", quote: "The only way to win is to fight!", image: "/assets/placeholder-avatar.png" },
   // Add remaining secretariat members here
 ];
 
