@@ -43,7 +43,7 @@ export default function Hero() {
           people about to discover what they are capable of.
         </p>
 
-        <div className="bg-cream/10 rounded-2xl p-6">
+        <div className="bg-cream/10 rounded-2xl p-4 sm:p-6">
           <Countdown />
         </div>
 

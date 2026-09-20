@@ -6,6 +6,7 @@ export const event = {
   name: "SGSITS MUN 2026",
   theme: "DIGIT",
   dates: "10 & 11 October 2026",
+  targetDate: "2026-10-10T09:00:00+05:30",
   venue: "SGSITS, Indore",
   city: "Indore, Madhya Pradesh",
   email: "sgsitsmun@gmail.com",
