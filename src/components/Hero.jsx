@@ -1,53 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import Countdown from "./Countdown";
 import { event } from "@/data/site";
 import AnimatedGridBackground from "./AnimatedGridBackground";
 import HeroImageCarousel from "./HeroImageCarousel";
 
 
-const backgroundImages = [
-  "/assets/hero-building.jpg",
-  "/assets/hero-building.jpg",
-  "/assets/hero-building.jpg"
-];
-
 export default function Hero() {
-  const slidesRef = useRef([]);
-
-  useEffect(() => {
-    const slides = slidesRef.current.filter(Boolean);
-    if (!slides.length) return;
-
-    const tl = gsap.timeline({ repeat: -1 });
-    slides.forEach((slide, i) => {
-      tl.fromTo(slide,
-        { opacity: 0, scale: 1 },
-        { opacity: 1, scale: 1.15, duration: 2 },
-        i * 3
-      ).to(slide, { opacity: 0, duration: 1 }, i * 3 + 2.5);
-    });
-
-    return () => tl.kill();
-  }, []);
-
   return (
     <header className="relative min-h-screen flex items-center pt-24 pb-16 px-6 overflow-hidden">
-      {backgroundImages.map((src, idx) => (
-        <Image
-          key={idx}
-          src={src}
-          alt=""
-          fill
-          priority={idx === 0}
-          className="object-cover -z-20 opacity-0"
-          ref={(el) => (slidesRef.current[idx] = el)}
-        />
-      ))}
-
       {/* ── Scrolling gallery images (deepest layer) ─────────────── */}
       <HeroImageCarousel />
 

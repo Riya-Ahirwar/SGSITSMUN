@@ -30,10 +30,11 @@ export default function Secretariat() {
         </div>
 
         {/* Secretariat Grid */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
+        <div data-reveal-group className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
           {secretariat.map((m) => (
             <div
               key={m.name}
+              data-reveal
               className="group relative rounded-2xl p-[1px] overflow-hidden transition-transform duration-300 hover:-translate-y-0.5"
             >
               {/* Animated gradient border */}
