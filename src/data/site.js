@@ -15,10 +15,10 @@ export const event = {
 
 export const themePillars = [
   { letter: "D", title: "Democracy", desc: "Representation, consent, and what it means for institutions to actually serve people." },
-  { letter: "I", title: "Innovation", desc: "New tools, new problems, new responsibilities — and who gets to decide." },
+  { letter: "I", title: "Innovation", desc: "New tools, new problems, new responsibilities and who gets to decide." },
   { letter: "G", title: "Global", desc: "No challenge that matters stops at a border. Neither should the debate." },
   { letter: "I", title: "Inclusion", desc: "Policy without equity is incomplete. Who sits at the table, and who should." },
-  { letter: "T", title: "Technology", desc: "Governing what we build before it governs us — the defining challenge of this decade." },
+  { letter: "T", title: "Technology", desc: "Governing what we build before it governs us the defining challenge of this decade." },
 ];
 
 export const committees = [

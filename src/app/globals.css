@@ -152,7 +152,7 @@ h1, h2, h3, .font-display {
 
 /* ── Hero Image Carousel ─────────────────────────────────────────── */
 /* 3 copies × 4 images × 100vw = seamless infinite scroll */
-@keyframes hero-scroll {
+/* @keyframes hero-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(calc(-100vw * 4)); }
 }
@@ -160,9 +160,9 @@ h1, h2, h3, .font-display {
 .hero-carousel-track {
   animation: hero-scroll 32s linear infinite;
   width: max-content;
-}
+} */
 
-@media (prefers-reduced-motion: reduce) {
+/* @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
@@ -170,4 +170,4 @@ h1, h2, h3, .font-display {
   .hero-carousel-track {
     animation: none;
   }
-}
+} */
