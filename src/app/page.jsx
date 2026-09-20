@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import ImageShowcase from "@/components/ImageShowcase";
 import ThemePillars from "@/components/ThemePillars";
 import Committees from "@/components/Committees";
 import Secretariat from "@/components/Secretariat";
@@ -13,6 +14,7 @@ export default function Home() {
       <GlobalAnimations />
       <Nav />
       <Hero />
+      <ImageShowcase />
       <ThemePillars />
       <Committees />
       <Secretariat />
