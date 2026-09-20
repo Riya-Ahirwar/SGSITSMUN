@@ -150,17 +150,6 @@ h1, h2, h3, .font-display {
   font-weight: 700;
 }
 
-/* Reveal-on-scroll utility, mirrors the ".rv" pattern from the reference site */
-.rv {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.rv.in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* ── Hero Image Carousel ─────────────────────────────────────────── */
 /* 3 copies × 4 images × 100vw = seamless infinite scroll */
 @keyframes hero-scroll {
@@ -174,6 +163,10 @@ h1, h2, h3, .font-display {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .hero-carousel-track {
     animation: none;
   }
