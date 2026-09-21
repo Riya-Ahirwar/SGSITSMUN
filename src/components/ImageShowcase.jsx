@@ -131,6 +131,7 @@ export default function ImageShowcase() {
             pinSpacing: true,
             scrub: 1,
             anticipatePin: 1,
+            refreshPriority: 1,
             invalidateOnRefresh: true,
           },
         });
@@ -239,6 +240,7 @@ export default function ImageShowcase() {
             pinSpacing: true,
             scrub: 1,
             anticipatePin: 1,
+            refreshPriority: 1,
             invalidateOnRefresh: true,
           },
         });
@@ -347,6 +349,7 @@ export default function ImageShowcase() {
             pinSpacing: true,
             scrub: 1,
             anticipatePin: 1,
+            refreshPriority: 1,
             invalidateOnRefresh: true,
           },
         });

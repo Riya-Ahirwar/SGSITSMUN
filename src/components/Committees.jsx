@@ -18,10 +18,11 @@ export default function Committees() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div data-reveal-group className="grid md:grid-cols-3 gap-5">
           {committees.map((c, i) => (
             <div
               key={c.name}
+              data-reveal
               className="group relative rounded-2xl p-[1px] overflow-hidden transition-transform duration-300 hover:-translate-y-0.5"
             >
               {/* Animated gradient border, revealed on hover */}

@@ -24,10 +24,11 @@ export default function ThemePillars() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-5 gap-4">
+        <div data-reveal-group className="grid sm:grid-cols-2 md:grid-cols-5 gap-4">
           {themePillars.map((p) => (
             <div
               key={p.title}
+              data-reveal
               className="group relative rounded-2xl p-[1px] overflow-hidden transition-transform duration-300 hover:-translate-y-0.5"
             >
               {/* Animated gradient border, revealed on hover */}
