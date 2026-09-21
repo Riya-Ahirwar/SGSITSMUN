@@ -39,7 +39,28 @@ export default function GlobalAnimations() {
             });
         });
 
-        return () => ctx.revert();
+        const refresh = () => ScrollTrigger.refresh();
+
+        // Recalculate trigger positions once the page is fully loaded — images,
+        // fonts, and the GSAP-pinned ImageShowcase section can all shift layout
+        // after ScrollTrigger's first measurement.
+        if (document.readyState === "complete") {
+            refresh();
+        } else {
+            window.addEventListener("load", refresh);
+        }
+
+        // Self-hosted Metropolis uses font-display:swap, so the fallback font
+        // renders first and text reflows once Metropolis loads in — that shift
+        // happens after ScrollTrigger's initial measurement too.
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(refresh);
+        }
+
+        return () => {
+            ctx.revert();
+            window.removeEventListener("load", refresh);
+        };
     }, []);
 
     return null;

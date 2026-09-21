@@ -26,7 +26,7 @@ export default function WaysIn() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-3">
+        <div data-reveal-group className="grid md:grid-cols-2 gap-3">
           {waysIn.map((w) => {
             const isExecutiveBoard = w.title === "Join the Executive Board";
 
@@ -104,6 +104,7 @@ export default function WaysIn() {
               return (
                 <div
                   key={w.title}
+                  data-reveal
                   className="group relative rounded-2xl p-[1px] overflow-hidden cursor-not-allowed"
                   aria-disabled="true"
                 >
@@ -116,6 +117,7 @@ export default function WaysIn() {
               <a
                 key={w.title}
                 href={w.href}
+                data-reveal
                 className="group relative rounded-2xl p-[1px] overflow-hidden transition-transform duration-300 hover:-translate-y-0.5"
               >
                 {cardContent}
