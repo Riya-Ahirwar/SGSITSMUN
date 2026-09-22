@@ -42,22 +42,39 @@ export const themePillars = [
 
 export const committees = [
   {
-    name: "Lok Sabha",
-    tag: "House of the People",
-    type: "Parliamentary",
-    desc: "India's lower house of Parliament — where legislation is contested, amended and passed.",
+    num: "01",
+    name: "LOK SABHA",
+    tag: "The House of the People",
+    desc: "A forum where competing visions of governance meet. Debate, negotiate and legislate as elected representatives navigating the complexities of a living democracy.",
+    question: "What should a democracy demand of those who govern it?",
   },
   {
-    name: "SOCHUM",
-    tag: "Social, Cultural & Humanitarian",
-    type: "United Nations",
-    desc: "The UN's Third Committee takes on the hardest questions — rights, identity, displacement.",
+    num: "02",
+    name: "MAHABHARATA",
+    tag: "An Epic of Power, Duty & Consequence",
+    desc: "Step into an age where alliances shift, loyalties are tested and every decision carries a consequence. Navigate the politics, dilemmas and conflicts that precede the great war of Kurukshetra.",
+    question: "When duty and morality collide, which path do you choose?",
   },
   {
+    num: "03",
+    name: "UNHRC",
+    tag: "United Nations Human Rights Council",
+    desc: "A forum dedicated to the protection of human dignity and fundamental freedoms, where nations confront violations, negotiate solutions and debate the responsibilities of the international community.",
+    question: "Who protects rights when the world disagrees on what justice requires?",
+  },
+  {
+    num: "04",
     name: "DISEC",
-    tag: "Disarmament & International Security",
-    type: "United Nations",
-    desc: "From nuclear arsenals to autonomous weapons systems, DISEC holds the debates that matter most.",
+    tag: "Disarmament & International Security Committee",
+    desc: "The arena of international security, where nations confront questions of disarmament, military technology, weapons proliferation and the delicate pursuit of peace.",
+    question: "How do nations pursue security without making conflict inevitable?",
+  },
+  {
+    num: "05",
+    name: "UNODC",
+    tag: "United Nations Office on Drugs & Crime",
+    desc: "A forum confronting the challenges that cross borders—from organized crime and illicit trafficking to corruption and international criminal justice.",
+    question: "How does the world fight problems that know no borders?",
   },
 ];
 
