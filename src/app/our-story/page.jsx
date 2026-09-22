@@ -1,16 +1,21 @@
-import PageShell from "@/components/PageShell";
-import { story } from "@/data/site";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import OurStory from "@/components/OurStory";
 
-export const metadata = { title: "Our Story | SGSITS MUN" };
+export const metadata = {
+  title: "Our Story | SGSITS MUN 2026",
+  description:
+    "Why SGSITS MUN exists: A leading institution, a culture of questioning, and a platform where every perspective has a place at the table.",
+};
 
 export default function OurStoryPage() {
   return (
-    <PageShell eyebrow="Our Story" title="Why this conference exists" subtitle={story.intro}>
-      <div className="flex flex-col gap-6 text-navy/80 leading-relaxed">
-        {story.paragraphs.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
-    </PageShell>
+    <>
+      <Nav />
+      <main>
+        <OurStory />
+      </main>
+      <Footer />
+    </>
   );
 }
