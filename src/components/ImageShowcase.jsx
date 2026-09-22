@@ -149,13 +149,13 @@ export default function ImageShowcase() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[900px] h-[400px] md:h-[600px] bg-gradient-to-r from-[#082052]/40 via-[#1e3a8a]/20 to-[#082052]/40 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Header text with smooth interactive hover effects */}
-      <div className="text-center z-40 max-w-2xl mx-auto flex flex-col items-center gap-2 select-none group cursor-default">
-        <h2 className="relative font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold uppercase tracking-[0.22em] text-cream transition-all duration-500 ease-out hover:tracking-[0.28em] hover:drop-shadow-[0_0_20px_rgba(248,240,229,0.5)]">
-          THE JOURNEY SO FAR
+      <div className="text-center z-40 max-w-3xl mx-auto flex flex-col items-center gap-2 select-none group cursor-default">
+        <h2 className="relative font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-[0.22em] text-cream transition-all duration-500 ease-out hover:tracking-[0.28em] hover:drop-shadow-[0_0_20px_rgba(248,240,229,0.5)]">
+          A JOURNEY BUILT ON DIALOGUE
           <span className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-[#7eb8f7] rounded-full transition-all duration-500 group-hover:w-2/3" />
         </h2>
-        <p className="font-sans text-xs sm:text-sm md:text-base text-cream/70 font-light tracking-wide transition-all duration-300 group-hover:text-cream/95 group-hover:drop-shadow-[0_0_12px_rgba(126,184,247,0.35)]">
-          Debates, people, moments.
+        <p className="font-sans text-xs sm:text-sm md:text-base text-cream/70 font-light tracking-wide transition-all duration-300 group-hover:text-cream/95 group-hover:drop-shadow-[0_0_12px_rgba(126,184,247,0.35)] max-w-xl mx-auto">
+          From our first session to the conversations that continue to shape us.
         </p>
       </div>
 
