@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 import { themePillars } from "@/data/site";
 
 export default function ThemePillars() {
@@ -12,7 +13,7 @@ export default function ThemePillars() {
   const closingRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion || !sectionRef.current) return;
@@ -22,45 +23,54 @@ export default function ThemePillars() {
       ScrollTrigger.refresh();
     }, 200);
 
+    let chars;
     const ctx = gsap.context(() => {
-      // Step 8 — Subtle reveal animations
+      // 1. SplitText bounce animation on main heading (.text)
+      chars = SplitText.create(".text", { type: "chars" });
+      chars.chars.forEach((ch) => {
+        gsap.from(ch, {
+          y: -200,
+          opacity: 0,
+          duration: 0.8,
+          ease: "bounce.out",
+          delay: Math.random() * 0.5,
+          scrollTrigger: {
+            trigger: ".text",
+            start: "top 80%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        });
+      });
 
-      // 1. Intro content fade/slide upward
+      // 2. Animate the boxes (.element)
+      gsap.from(".element", {
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: ".element",
+          start: "top 80%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+
+      // 3. Intro subtitle & paragraph reveal
       if (introRef.current) {
         gsap.fromTo(
-          introRef.current,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: introRef.current,
-              start: "top 90%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-            clearProps: "transform,opacity",
-          }
-        );
-      }
-
-      // 2. Cards appear sequentially with small stagger
-      const cards = gsap.utils.toArray(".prism-card");
-      if (cards.length > 0 && cardsContainerRef.current) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 28 },
+          ".theme-intro-text",
+          { opacity: 0, y: 16 },
           {
             opacity: 1,
             y: 0,
             duration: 0.6,
-            stagger: 0.08,
+            stagger: 0.12,
             ease: "power2.out",
             scrollTrigger: {
-              trigger: cardsContainerRef.current,
-              start: "top 95%",
+              trigger: introRef.current,
+              start: "top 85%",
               toggleActions: "play none none none",
               once: true,
             },
@@ -69,7 +79,7 @@ export default function ThemePillars() {
         );
       }
 
-      // 3. Closing statement reveals after the cards
+      // 4. Closing statement reveal
       if (closingRef.current) {
         gsap.fromTo(
           closingRef.current,
@@ -77,11 +87,11 @@ export default function ThemePillars() {
           {
             opacity: 1,
             y: 0,
-            duration: 0.7,
+            duration: 0.6,
             ease: "power2.out",
             scrollTrigger: {
               trigger: closingRef.current,
-              start: "top 95%",
+              start: "top 90%",
               toggleActions: "play none none none",
               once: true,
             },
@@ -93,6 +103,9 @@ export default function ThemePillars() {
 
     return () => {
       clearTimeout(timer);
+      if (chars && typeof chars.revert === "function") {
+        chars.revert();
+      }
       ctx.revert();
     };
   }, []);
@@ -112,16 +125,16 @@ export default function ThemePillars() {
       <div className="max-w-7xl mx-auto">
         {/* STEP 1 — Introductory Content */}
         <div ref={introRef} className="max-w-4xl mx-auto mb-16 md:mb-20">
-          <p className="uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-navy/60 mb-3">
+          <p className="theme-intro-text uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-navy/60 mb-3">
             OUR THEME
           </p>
-          <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-navy mb-3">
+          <h2 className="text font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-navy mb-3 overflow-visible">
             PRISM
           </h2>
-          <p className="font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-8">
+          <p className="theme-intro-text font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-8">
             Five perspectives. One dialogue.
           </p>
-          <div className="max-w-3xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-4 font-light">
+          <div className="theme-intro-text max-w-3xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-4 font-light">
             <p>
               PRISM is built on a simple idea: no question exists in isolation. Every conflict carries
               competing perspectives, every decision carries consequences, and every voice brings a
@@ -143,7 +156,7 @@ export default function ThemePillars() {
             <div
               key={pillar.title}
               tabIndex={0}
-              className="prism-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-navy/15 hover:border-navy/40 transition-all duration-400 ease-out hover:-translate-y-2 shadow-[0_4px_24px_rgba(8,32,82,0.05)] hover:shadow-[0_16px_36px_rgba(8,32,82,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 focus-visible:-translate-y-2 cursor-default select-none h-full min-h-[300px]"
+              className="element prism-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-navy/15 hover:border-navy/40 transition-all duration-400 ease-out hover:-translate-y-2 shadow-[0_4px_24px_rgba(8,32,82,0.05)] hover:shadow-[0_16px_36px_rgba(8,32,82,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 focus-visible:-translate-y-2 cursor-default select-none h-full min-h-[300px]"
             >
               <div>
                 {/* Large individual letter at the top with index number */}
