@@ -2,127 +2,128 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import { themePillars } from "@/data/site";
 
 export default function ThemePillars() {
   const sectionRef = useRef(null);
-  const introRef = useRef(null);
-  const cardsContainerRef = useRef(null);
-  const closingRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, SplitText);
-
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion || !sectionRef.current) return;
-
-    // Refresh ScrollTrigger after a slight delay to ensure pinned sections above (ImageShowcase) are settled
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 250);
-
-    let chars;
-    const ctx = gsap.context(() => {
-      // 1. SplitText bounce animation on main heading (.text)
-      try {
-        chars = SplitText.create(".text", { type: "chars" });
-        chars.chars.forEach((ch) => {
-          gsap.from(ch, {
-            y: -200,
-            opacity: 0,
-            duration: 0.8,
-            ease: "bounce.out",
-            delay: Math.random() * 0.5,
-            scrollTrigger: {
-              trigger: ".text",
-              start: "top 85%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-            clearProps: "transform,opacity",
-          });
-        });
-      } catch (err) {
-        console.warn("SplitText fallback:", err);
-      }
-
-      // 2. Animate the boxes (.element) using fromTo with clearProps
-      // so cards are guaranteed visible and never stuck at opacity 0
-      gsap.fromTo(
-        ".element",
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cardsContainerRef.current || ".element",
-            start: "top 85%",
-            toggleActions: "play none none none",
-            once: true,
-          },
-          clearProps: "transform,opacity",
-        }
+    if (prefersReducedMotion) {
+      gsap.set(
+        [
+          ".prism-eyebrow",
+          ".prism-heading-text",
+          ".prism-tagline",
+          ".prism-paragraph",
+          ".prism-card",
+          ".prism-closing",
+        ],
+        { opacity: 1, y: 0, scale: 1 }
       );
+      return;
+    }
 
-      // 3. Intro subtitle & paragraph reveal
-      if (introRef.current) {
-        gsap.fromTo(
-          ".theme-intro-text",
+    if (!sectionRef.current) return;
+
+    let tl;
+    const ctx = gsap.context(() => {
+      // Master timeline paused initially, controlled by IntersectionObserver
+      tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power2.out" },
+      });
+
+      tl
+        // 1. OUR THEME → fade + slight upward movement
+        .fromTo(
+          ".prism-eyebrow",
           { opacity: 0, y: 16 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: introRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-            clearProps: "transform,opacity",
-          }
+          { opacity: 1, y: 0, duration: 0.45 }
+        )
+        // 2. PRISM → smooth reveal/scale
+        .fromTo(
+          ".prism-heading-text",
+          { opacity: 0, y: 22, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power2.out" },
+          "-=0.2"
+        )
+        // 3. Five perspectives. One dialogue. → fade/slide
+        .fromTo(
+          ".prism-tagline",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.5 },
+          "-=0.2"
+        )
+        // 4. Introduction paragraphs → staggered reveal
+        .fromTo(
+          ".prism-paragraph",
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
+          "-=0.15"
+        )
+        // 5. PRISM cards → staggered entrance
+        .fromTo(
+          ".prism-card",
+          { opacity: 0, y: 32 },
+          { opacity: 1, y: 0, duration: 0.55, stagger: 0.08 },
+          "-=0.15"
+        )
+        // 6. Closing statement
+        .fromTo(
+          ".prism-closing",
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.5 },
+          "-=0.1"
         );
-      }
-
-      // 4. Closing statement reveal
-      if (closingRef.current) {
-        gsap.fromTo(
-          closingRef.current,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: closingRef.current,
-              start: "top 90%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-            clearProps: "transform,opacity",
-          }
-        );
-      }
     }, sectionRef);
 
-    // Additional refresh on window resize or load
-    const onResize = () => ScrollTrigger.refresh();
-    window.addEventListener("resize", onResize);
+    // 1. Replay the PRISM animation on every scroll entry using IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // When section becomes visible → trigger the PRISM reveal animation
+            tl.restart();
+          } else {
+            // When section leaves viewport → reset animation state so it can replay on next entry
+            tl.pause(0);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+      }
+    );
+
+    observer.observe(sectionRef.current);
+
+    // 2 & 3. Passive touch interaction handlers for mobile/touch devices
+    const zoomElements = sectionRef.current.querySelectorAll(
+      ".interactive-zoom-heading, .interactive-zoom-sub, .interactive-zoom-body, .interactive-zoom-center, .interactive-zoom-center-body"
+    );
+
+    const onTouchStart = function () {
+      this.classList.add("is-touched");
+    };
+    const onTouchEnd = function () {
+      this.classList.remove("is-touched");
+    };
+
+    zoomElements.forEach((el) => {
+      el.addEventListener("touchstart", onTouchStart, { passive: true });
+      el.addEventListener("touchend", onTouchEnd, { passive: true });
+      el.addEventListener("touchcancel", onTouchEnd, { passive: true });
+    });
 
     return () => {
-      clearTimeout(refreshTimer);
-      window.removeEventListener("resize", onResize);
-      if (chars && typeof chars.revert === "function") {
-        chars.revert();
-      }
+      observer.disconnect();
+      zoomElements.forEach((el) => {
+        el.removeEventListener("touchstart", onTouchStart);
+        el.removeEventListener("touchend", onTouchEnd);
+        el.removeEventListener("touchcancel", onTouchEnd);
+      });
+      if (tl) tl.kill();
       ctx.revert();
     };
   }, []);
@@ -131,8 +132,71 @@ export default function ThemePillars() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-cream text-navy px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 py-20 md:py-28 overflow-hidden"
+      className="relative bg-cream text-navy px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 py-20 md:py-28 overflow-hidden select-none"
     >
+      {/* Scoped CSS for subtle, non-disruptive text zoom on hover and touch */}
+      <style jsx>{`
+        .interactive-zoom-heading {
+          display: inline-block;
+          transform-origin: left center;
+          transition: transform 300ms ease, color 300ms ease;
+          will-change: transform;
+          cursor: default;
+        }
+        .interactive-zoom-heading:hover,
+        .interactive-zoom-heading.is-touched {
+          transform: scale(1.04);
+        }
+
+        .interactive-zoom-sub {
+          display: inline-block;
+          transform-origin: left center;
+          transition: transform 300ms ease, color 300ms ease;
+          will-change: transform;
+          cursor: default;
+        }
+        .interactive-zoom-sub:hover,
+        .interactive-zoom-sub.is-touched {
+          transform: scale(1.03);
+        }
+
+        .interactive-zoom-body {
+          display: block;
+          transform-origin: left center;
+          transition: transform 300ms ease, color 300ms ease;
+          will-change: transform;
+          cursor: default;
+        }
+        .interactive-zoom-body:hover,
+        .interactive-zoom-body.is-touched {
+          transform: scale(1.015);
+        }
+
+        .interactive-zoom-center {
+          display: inline-block;
+          transform-origin: center center;
+          transition: transform 300ms ease, color 300ms ease;
+          will-change: transform;
+          cursor: default;
+        }
+        .interactive-zoom-center:hover,
+        .interactive-zoom-center.is-touched {
+          transform: scale(1.03);
+        }
+
+        .interactive-zoom-center-body {
+          display: block;
+          transform-origin: center center;
+          transition: transform 300ms ease, color 300ms ease;
+          will-change: transform;
+          cursor: default;
+        }
+        .interactive-zoom-center-body:hover,
+        .interactive-zoom-center-body.is-touched {
+          transform: scale(1.015);
+        }
+      `}</style>
+
       {/* Background subtle radial warm lighting for editorial depth */}
       <div
         className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-navy/[0.025] rounded-full blur-3xl pointer-events-none -z-10"
@@ -141,40 +205,54 @@ export default function ThemePillars() {
 
       {/* Main container occupying ~75-85% of viewport width on desktop */}
       <div className="w-full max-w-[85vw] 2xl:max-w-[1480px] mx-auto">
-        {/* STEP 1 — Introductory Content (Expanded horizontally with consistent left alignment) */}
-        <div ref={introRef} className="w-full mb-14 md:mb-18 lg:mb-20 text-left">
-          <p className="theme-intro-text uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-navy/60 mb-3">
-            OUR THEME
-          </p>
-          <h2 className="text font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-navy mb-3 overflow-visible">
-            PRISM
-          </h2>
-          <p className="theme-intro-text font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-6">
-            Five perspectives. One dialogue.
-          </p>
-          <div className="theme-intro-text w-full max-w-5xl xl:max-w-6xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-3.5 font-light">
-            <p>
-              PRISM is built on a simple idea: no question exists in isolation. Every conflict carries
-              competing perspectives, every decision carries consequences, and every voice brings a
-              different understanding of what is right.
+        {/* STEP 1 — Introductory Content */}
+        <div className="w-full mb-14 md:mb-18 lg:mb-20 text-left">
+          {/* Eyebrow */}
+          <div className="prism-eyebrow">
+            <p className="interactive-zoom-sub uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-navy/60 mb-3">
+              OUR THEME
             </p>
-            <p>
-              This year, SGSITS MUN brings those perspectives into one space — where ideas are challenged,
-              convictions are tested, and dialogue becomes the path toward understanding.
+          </div>
+
+          {/* PRISM Heading */}
+          <div className="prism-heading-text overflow-visible">
+            <h2 className="interactive-zoom-heading font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-navy mb-3 overflow-visible">
+              PRISM
+            </h2>
+          </div>
+
+          {/* Tagline */}
+          <div className="prism-tagline">
+            <p className="interactive-zoom-sub font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-6">
+              Five perspectives. One dialogue.
             </p>
+          </div>
+
+          {/* Paragraphs */}
+          <div className="w-full max-w-5xl xl:max-w-6xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-3.5 font-light">
+            <div className="prism-paragraph">
+              <p className="interactive-zoom-body">
+                PRISM is built on a simple idea: no question exists in isolation. Every conflict carries
+                competing perspectives, every decision carries consequences, and every voice brings a
+                different understanding of what is right.
+              </p>
+            </div>
+            <div className="prism-paragraph">
+              <p className="interactive-zoom-body">
+                This year, SGSITS MUN brings those perspectives into one space — where ideas are challenged,
+                convictions are tested, and dialogue becomes the path toward understanding.
+              </p>
+            </div>
           </div>
         </div>
 
         {/* STEP 2 & 3 — PRISM Pillar Cards Layout */}
-        <div
-          ref={cardsContainerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 items-stretch"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 items-stretch">
           {themePillars.map((pillar, idx) => (
             <div
               key={pillar.title}
               tabIndex={0}
-              className="element prism-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-navy/15 hover:border-navy/40 transition-all duration-400 ease-out hover:-translate-y-2 shadow-[0_4px_24px_rgba(8,32,82,0.06)] hover:shadow-[0_16px_36px_rgba(8,32,82,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 focus-visible:-translate-y-2 cursor-default select-none h-full min-h-[300px]"
+              className="prism-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-navy/15 hover:border-navy/40 transition-all duration-400 ease-out hover:-translate-y-2 shadow-[0_4px_24px_rgba(8,32,82,0.06)] hover:shadow-[0_16px_36px_rgba(8,32,82,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 focus-visible:-translate-y-2 cursor-default select-none h-full min-h-[300px]"
             >
               <div>
                 {/* Large individual letter at the top with index number */}
@@ -188,12 +266,12 @@ export default function ThemePillars() {
                 </div>
 
                 {/* Pillar name beneath it */}
-                <h3 className="font-sans text-base sm:text-lg font-bold tracking-widest text-navy uppercase mb-3">
+                <h3 className="interactive-zoom-sub font-sans text-base sm:text-lg font-bold tracking-widest text-navy uppercase mb-3">
                   {pillar.title}
                 </h3>
 
                 {/* Short description */}
-                <p className="font-sans text-xs sm:text-sm text-navy/70 leading-relaxed group-hover:text-navy/90 transition-colors duration-400 font-normal">
+                <p className="interactive-zoom-body font-sans text-xs sm:text-sm text-navy/70 leading-relaxed group-hover:text-navy/90 font-normal">
                   {pillar.desc}
                 </p>
               </div>
@@ -210,11 +288,11 @@ export default function ThemePillars() {
         </div>
 
         {/* STEP 6 — Closing Statement */}
-        <div ref={closingRef} className="max-w-2xl mx-auto text-center mt-16 md:mt-24 px-4">
-          <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-navy font-bold tracking-tight mb-3">
+        <div className="prism-closing max-w-2xl mx-auto text-center mt-16 md:mt-24 px-4">
+          <h3 className="interactive-zoom-center font-display text-2xl sm:text-3xl md:text-4xl text-navy font-bold tracking-tight mb-3">
             One question. Many perspectives.
           </h3>
-          <p className="font-sans text-sm sm:text-base text-navy/60 font-light leading-relaxed max-w-xl mx-auto">
+          <p className="interactive-zoom-center-body font-sans text-sm sm:text-base text-navy/60 font-light leading-relaxed max-w-xl mx-auto">
             Because meaningful dialogue begins when we are willing to see beyond our own.
           </p>
         </div>
