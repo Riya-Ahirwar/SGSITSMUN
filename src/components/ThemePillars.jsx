@@ -18,44 +18,56 @@ export default function ThemePillars() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion || !sectionRef.current) return;
 
-    // Refresh ScrollTrigger to account for any pinned sections above (e.g. ImageShowcase)
-    const timer = setTimeout(() => {
+    // Refresh ScrollTrigger after a slight delay to ensure pinned sections above (ImageShowcase) are settled
+    const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 200);
+    }, 250);
 
     let chars;
     const ctx = gsap.context(() => {
       // 1. SplitText bounce animation on main heading (.text)
-      chars = SplitText.create(".text", { type: "chars" });
-      chars.chars.forEach((ch) => {
-        gsap.from(ch, {
-          y: -200,
-          opacity: 0,
-          duration: 0.8,
-          ease: "bounce.out",
-          delay: Math.random() * 0.5,
+      try {
+        chars = SplitText.create(".text", { type: "chars" });
+        chars.chars.forEach((ch) => {
+          gsap.from(ch, {
+            y: -200,
+            opacity: 0,
+            duration: 0.8,
+            ease: "bounce.out",
+            delay: Math.random() * 0.5,
+            scrollTrigger: {
+              trigger: ".text",
+              start: "top 85%",
+              toggleActions: "play none none none",
+              once: true,
+            },
+            clearProps: "transform,opacity",
+          });
+        });
+      } catch (err) {
+        console.warn("SplitText fallback:", err);
+      }
+
+      // 2. Animate the boxes (.element) using fromTo with clearProps
+      // so cards are guaranteed visible and never stuck at opacity 0
+      gsap.fromTo(
+        ".element",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: ".text",
-            start: "top 80%",
+            trigger: cardsContainerRef.current || ".element",
+            start: "top 85%",
             toggleActions: "play none none none",
             once: true,
           },
-        });
-      });
-
-      // 2. Animate the boxes (.element)
-      gsap.from(".element", {
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: ".element",
-          start: "top 80%",
-          toggleActions: "play none none none",
-          once: true,
-        },
-      });
+          clearProps: "transform,opacity",
+        }
+      );
 
       // 3. Intro subtitle & paragraph reveal
       if (introRef.current) {
@@ -66,7 +78,7 @@ export default function ThemePillars() {
             opacity: 1,
             y: 0,
             duration: 0.6,
-            stagger: 0.12,
+            stagger: 0.1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: introRef.current,
@@ -101,8 +113,13 @@ export default function ThemePillars() {
       }
     }, sectionRef);
 
+    // Additional refresh on window resize or load
+    const onResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", onResize);
+
     return () => {
-      clearTimeout(timer);
+      clearTimeout(refreshTimer);
+      window.removeEventListener("resize", onResize);
       if (chars && typeof chars.revert === "function") {
         chars.revert();
       }
@@ -114,7 +131,7 @@ export default function ThemePillars() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-cream text-navy px-6 lg:px-12 py-24 md:py-32 overflow-hidden"
+      className="relative bg-cream text-navy px-6 lg:px-12 py-20 md:py-28 overflow-hidden"
     >
       {/* Background subtle radial warm lighting for editorial depth */}
       <div
@@ -124,17 +141,17 @@ export default function ThemePillars() {
 
       <div className="max-w-7xl mx-auto">
         {/* STEP 1 — Introductory Content */}
-        <div ref={introRef} className="max-w-4xl mx-auto mb-16 md:mb-20">
+        <div ref={introRef} className="max-w-4xl mx-auto mb-12 md:mb-16">
           <p className="theme-intro-text uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-navy/60 mb-3">
             OUR THEME
           </p>
           <h2 className="text font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-navy mb-3 overflow-visible">
             PRISM
           </h2>
-          <p className="theme-intro-text font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-8">
+          <p className="theme-intro-text font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-6">
             Five perspectives. One dialogue.
           </p>
-          <div className="theme-intro-text max-w-3xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-4 font-light">
+          <div className="theme-intro-text max-w-3xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-3.5 font-light">
             <p>
               PRISM is built on a simple idea: no question exists in isolation. Every conflict carries
               competing perspectives, every decision carries consequences, and every voice brings a
@@ -156,7 +173,7 @@ export default function ThemePillars() {
             <div
               key={pillar.title}
               tabIndex={0}
-              className="element prism-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-navy/15 hover:border-navy/40 transition-all duration-400 ease-out hover:-translate-y-2 shadow-[0_4px_24px_rgba(8,32,82,0.05)] hover:shadow-[0_16px_36px_rgba(8,32,82,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 focus-visible:-translate-y-2 cursor-default select-none h-full min-h-[300px]"
+              className="element prism-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl bg-white border border-navy/15 hover:border-navy/40 transition-all duration-400 ease-out hover:-translate-y-2 shadow-[0_4px_24px_rgba(8,32,82,0.06)] hover:shadow-[0_16px_36px_rgba(8,32,82,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy/40 focus-visible:-translate-y-2 cursor-default select-none h-full min-h-[300px]"
             >
               <div>
                 {/* Large individual letter at the top with index number */}
@@ -192,8 +209,8 @@ export default function ThemePillars() {
         </div>
 
         {/* STEP 6 — Closing Statement */}
-        <div ref={closingRef} className="max-w-2xl mx-auto text-center mt-20 md:mt-28 px-4">
-          <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-navy font-bold tracking-tight mb-3.5">
+        <div ref={closingRef} className="max-w-2xl mx-auto text-center mt-16 md:mt-24 px-4">
+          <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-navy font-bold tracking-tight mb-3">
             One question. Many perspectives.
           </h3>
           <p className="font-sans text-sm sm:text-base text-navy/60 font-light leading-relaxed max-w-xl mx-auto">
