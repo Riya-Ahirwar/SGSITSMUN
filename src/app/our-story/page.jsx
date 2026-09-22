@@ -1,5 +1,4 @@
 import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
 import OurStory from "@/components/OurStory";
 
 export const metadata = {
@@ -15,7 +14,6 @@ export default function OurStoryPage() {
       <main>
         <OurStory />
       </main>
-      <Footer />
     </>
   );
 }
