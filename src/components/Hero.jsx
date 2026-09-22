@@ -67,7 +67,7 @@ export default function Hero() {
         {/* CTA buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
           <a
-            href="#register"
+            href="https://forms.gle/nPdiZcwdVf5XmbXJ6"
             className="group bg-cream text-navy px-7 py-3 rounded-full font-semibold hover:bg-cream/95 hover:shadow-[0_0_25px_rgba(248,240,229,0.45)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2"
           >
             Register as Delegate{" "}

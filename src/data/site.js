@@ -108,25 +108,27 @@ export const conferenceLeadership = [
 
 export const executiveTeam = [
   {
-    name: "RAJIV PARA",
-    role: "USG — DELEGATE AFFAIRS",
-    image: "/assets/secretariat/rajiv.jpg",
-  },
-  {
     name: "ALKESH RAJPUT",
     role: "USG — LOGISTICS & HOSPITALITY",
     image: "/assets/secretariat/alkesh.jpg",
   },
   {
+    name: "YASHVARDHAN PATEL",
+    role: "USG — TECH AFFAIRS",
+    image: "/assets/secretariat/yash.jpg",
+  },
+  {
+    name: "RAJIV PARA",
+    role: "USG — DELEGATE AFFAIRS",
+    image: "/assets/secretariat/rajiv.jpg",
+  },
+  
+  {
     name: "VENKATESH",
     role: "USG — LOGISTICS & HOSPITALITY",
     image: "/assets/secretariat/venkatesh.jpg",
   },
-  {
-    name: "YASH",
-    role: "USG — TECH AFFAIRS",
-    image: "/assets/secretariat/yash.jpg",
-  },
+  
   {
     name: "SAHARSH SINGH",
     role: "USG — INTERNATIONAL PRESS",
@@ -144,7 +146,7 @@ export const story = {
     "SGSITS MUN began as an idea in a classroom — a handful of students who thought Indore deserved a conference that took debate as seriously as the best circuits in the country.",
   paragraphs: [
     "SGSITS — Shri Govindram Seksaria Institute of Technology and Science — has long been home to students who argue for a living outside the classroom. MUN gave that instinct a stage.",
-    "DIGIT, this edition's theme, grew out of a simple observation: the biggest fights of this decade — over data, representation, rights and power — don't fit inside old categories. So neither should our committees.",
+    "PRISM, this edition's theme, grew out of a simple observation: the hardest questions facing the world right now don't come from a single direction. Peace, rights, integrity, statecraft and morality aren't five separate debates — they're five angles on the same conflicts, refracting the same light differently depending on where you stand. So we built our committees to hold all five at once.",
     "We are not trying to be the biggest conference in the country in year one. We are trying to be the one delegates talk about for the right reasons — sharp chairing, fair judging, and debates that actually go somewhere.",
   ],
 };
@@ -152,7 +154,7 @@ export const story = {
 export const feePackages = [
   {
     name: "Individual Delegate",
-    price: "₹1,499",
+    price: "",
     features: ["Committee placement", "Delegate kit", "Both conference days", "Certificate of participation"],
   },
   {
@@ -183,8 +185,8 @@ export const conductPoints = [
 ];
 
 export const waysIn = [
-  { title: "Register as Delegate", desc: "Three committees, two days. Come ready to argue, negotiate and draft.", status: "Opening soon", href: "#register" },
+  { title: "Register as Delegate", desc: "Three committees, two days. Come ready to argue, negotiate and draft.", status: "Registration open", href: "https://forms.gle/nPdiZcwdVf5XmbXJ6" },
   { title: "Join the Executive Board", desc: "Chair a committee, shape the agenda and hold the room to account.", status: "Applications open", href: "#" },
-  { title: "Volunteer with the Team", desc: "Behind every good conference is a team that makes it invisible.", status: "Applications open", href: "#" },
+  { title: "Volunteer with the Team", desc: "Behind every good conference is a team that makes it invisible.", status: "Applications open", href: "#contact" },
   { title: "Partner or Sponsor", desc: "Brands, institutions and organisations — one conversation covers all of it.", status: "Enquire now", href: "#contact" },
 ];

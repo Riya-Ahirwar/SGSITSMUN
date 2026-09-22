@@ -22,7 +22,7 @@ export default function WaysIn() {
           </div>
 
           <p className="max-w-xs text-cream/60 text-sm md:text-right">
-            Delegate registration opens soon. Every other role is open right now.
+            Delegate registration is open!.
           </p>
         </div>
 
