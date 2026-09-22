@@ -277,11 +277,8 @@ export default function ThemePillars() {
               </div>
 
               {/* Minimal elegant editorial line accent at bottom of card */}
-              <div className="mt-8 pt-4 border-t border-navy/10 flex items-center justify-between">
+              <div className="mt-8 pt-4 border-t border-navy/10 flex items-center">
                 <span className="w-6 h-[1.5px] bg-navy/20 group-hover:w-12 group-hover:bg-[#082052] transition-all duration-400 rounded-full" />
-                <span className="text-[10px] uppercase tracking-wider text-navy/50 font-mono opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Perspective
-                </span>
               </div>
             </div>
           ))}
