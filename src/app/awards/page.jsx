@@ -1,5 +1,4 @@
 import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
 import AwardsView from "@/components/AwardsView";
 
 export const metadata = {
@@ -15,7 +14,6 @@ export default function AwardsPage() {
       <main>
         <AwardsView />
       </main>
-      <Footer />
     </>
   );
 }
