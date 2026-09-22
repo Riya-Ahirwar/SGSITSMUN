@@ -131,7 +131,7 @@ export default function ThemePillars() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative bg-cream text-navy px-6 lg:px-12 py-20 md:py-28 overflow-hidden"
+      className="relative bg-cream text-navy px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 py-20 md:py-28 overflow-hidden"
     >
       {/* Background subtle radial warm lighting for editorial depth */}
       <div
@@ -139,9 +139,10 @@ export default function ThemePillars() {
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto">
-        {/* STEP 1 — Introductory Content */}
-        <div ref={introRef} className="max-w-4xl mx-auto mb-12 md:mb-16">
+      {/* Main container occupying ~75-85% of viewport width on desktop */}
+      <div className="w-full max-w-[85vw] 2xl:max-w-[1480px] mx-auto">
+        {/* STEP 1 — Introductory Content (Expanded horizontally with consistent left alignment) */}
+        <div ref={introRef} className="w-full mb-14 md:mb-18 lg:mb-20 text-left">
           <p className="theme-intro-text uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-navy/60 mb-3">
             OUR THEME
           </p>
@@ -151,7 +152,7 @@ export default function ThemePillars() {
           <p className="theme-intro-text font-display italic text-2xl sm:text-3xl md:text-4xl text-navy/80 font-normal mb-6">
             Five perspectives. One dialogue.
           </p>
-          <div className="theme-intro-text max-w-3xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-3.5 font-light">
+          <div className="theme-intro-text w-full max-w-5xl xl:max-w-6xl text-navy/75 text-base sm:text-lg leading-relaxed space-y-3.5 font-light">
             <p>
               PRISM is built on a simple idea: no question exists in isolation. Every conflict carries
               competing perspectives, every decision carries consequences, and every voice brings a
