@@ -4,7 +4,7 @@
 
 export const event = {
   name: "SGSITS MUN 2026",
-  theme: "DIGIT",
+  theme: "PRISM",
   dates: "10 & 11 October 2026",
   venue: "SGSITS, Indore",
   city: "Indore, Madhya Pradesh",
@@ -13,11 +13,31 @@ export const event = {
 };
 
 export const themePillars = [
-  { letter: "D", title: "Democracy", desc: "Representation, consent, and what it means for institutions to actually serve people." },
-  { letter: "I", title: "Innovation", desc: "New tools, new problems, new responsibilities — and who gets to decide." },
-  { letter: "G", title: "Global", desc: "No challenge that matters stops at a border. Neither should the debate." },
-  { letter: "I", title: "Inclusion", desc: "Policy without equity is incomplete. Who sits at the table, and who should." },
-  { letter: "T", title: "Technology", desc: "Governing what we build before it governs us — the defining challenge of this decade." },
+  {
+    letter: "P",
+    title: "PEACE",
+    desc: "The pursuit of stability in a world shaped by competing interests, uncertainty and conflict.",
+  },
+  {
+    letter: "R",
+    title: "RIGHTS",
+    desc: "The principles that define dignity, equality and the freedoms every society must confront.",
+  },
+  {
+    letter: "I",
+    title: "INTEGRITY",
+    desc: "The responsibility to uphold justice, accountability and institutions when they are tested.",
+  },
+  {
+    letter: "S",
+    title: "STATECRAFT",
+    desc: "The art of turning competing interests, public voices and difficult choices into collective decisions.",
+  },
+  {
+    letter: "M",
+    title: "MORALITY",
+    desc: "The questions that emerge when duty, loyalty, ambition and consequence stand on opposite sides.",
+  },
 ];
 
 export const committees = [
