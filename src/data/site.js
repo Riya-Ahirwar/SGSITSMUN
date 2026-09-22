@@ -79,10 +79,64 @@ export const committees = [
   },
 ];
 
+export const conferenceLeadership = [
+  {
+    name: "ROHAN SINGHAL",
+    role: "SECRETARY GENERAL",
+    bio: "Setting the vision and guiding the Secretariat behind SGSITS MUN 2026.",
+    image: "/assets/secretariat/rohan.jpg",
+  },
+  {
+    name: "NIKUNJ AGRAWAL",
+    role: "DIRECTOR GENERAL",
+    bio: "Driving strategy, coordination and execution across the conference.",
+    image: "/assets/secretariat/nikunj.jpg",
+  },
+  {
+    name: "ANYA AGRAWAL",
+    role: "ADDITIONAL SECRETARY GENERAL",
+    bio: "Supporting the Secretariat in shaping a seamless conference experience.",
+    image: "/assets/secretariat/anya.jpg",
+  },
+  {
+    name: "SURYA SINGH",
+    role: "MUN COORDINATOR",
+    bio: "Connecting people, teams and operations to bring the conference together.",
+    image: "/assets/secretariat/surya.jpg",
+  },
+];
+
+export const executiveTeam = [
+  {
+    name: "RAJIV PARA",
+    role: "USG — DELEGATE AFFAIRS",
+    image: "/assets/secretariat/rajiv.jpg",
+  },
+  {
+    name: "ALKESH RAJPUT",
+    role: "USG — LOGISTICS & HOSPITALITY",
+    image: "/assets/secretariat/alkesh.jpg",
+  },
+  {
+    name: "VENKATESH",
+    role: "USG — LOGISTICS & HOSPITALITY",
+    image: "/assets/secretariat/venkatesh.jpg",
+  },
+  {
+    name: "YASH",
+    role: "USG — TECH AFFAIRS",
+    image: "/assets/secretariat/yash.jpg",
+  },
+  {
+    name: "SAHARSH SINGH",
+    role: "USG — INTERNATIONAL PRESS",
+    image: "/assets/secretariat/saharsh.jpg",
+  },
+];
+
 export const secretariat = [
-  { name: "Surya Pratap Singh", role: "MUN-Coordinator", quote: "Leading the organization with vision and dedication", image: "/assets/Surya.jpg" },
-  { name: "Alkesh Rajput", role: "USG-Logistics", quote: "Ensuring everything runs smoothly behind the scenes", image: "/assets/Alkesh.jpg" },
-  // Add remaining secretariat members here
+  ...conferenceLeadership.map((m) => ({ name: m.name, role: m.role, quote: m.bio, image: m.image })),
+  ...executiveTeam.map((m) => ({ name: m.name, role: m.role, quote: m.role, image: m.image })),
 ];
 
 export const story = {
