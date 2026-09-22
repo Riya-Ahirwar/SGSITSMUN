@@ -28,11 +28,11 @@ export default function Secretariat() {
       if (headerRef.current) {
         gsap.fromTo(
           headerRef.current,
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.65,
+            duration: 0.6,
             ease: "power2.out",
             scrollTrigger: {
               trigger: headerRef.current,
@@ -50,12 +50,12 @@ export default function Secretariat() {
       if (leadCards.length > 0 && leadershipRef.current) {
         gsap.fromTo(
           leadCards,
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 26 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
-            stagger: 0.12,
+            duration: 0.55,
+            stagger: 0.1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: leadershipRef.current,
@@ -72,11 +72,11 @@ export default function Secretariat() {
       if (execHeaderRef.current) {
         gsap.fromTo(
           execHeaderRef.current,
-          { opacity: 0, y: 20 },
+          { opacity: 0, y: 18 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.55,
+            duration: 0.5,
             ease: "power2.out",
             scrollTrigger: {
               trigger: execHeaderRef.current,
@@ -94,7 +94,7 @@ export default function Secretariat() {
       if (usgCards.length > 0 && execCardsRef.current) {
         gsap.fromTo(
           usgCards,
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 22 },
           {
             opacity: 1,
             y: 0,
@@ -123,7 +123,7 @@ export default function Secretariat() {
     <section
       id="secretariat"
       ref={sectionRef}
-      className="relative bg-[#040e24] text-cream px-6 lg:px-12 py-24 md:py-32 lg:py-36 overflow-hidden select-none"
+      className="relative bg-[#040e24] text-cream px-6 lg:px-12 py-16 md:py-24 overflow-hidden select-none"
     >
       {/* Ambient background glow orbs */}
       <div
@@ -141,26 +141,26 @@ export default function Secretariat() {
 
       <div className="max-w-7xl mx-auto">
         {/* ========================================================
-            PAGE HEADER / INTRO
+            PAGE HEADER / INTRO (UNIFIED TOP)
         ========================================================= */}
         <div
           ref={headerRef}
-          className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 md:mb-24"
+          className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-12 md:mb-16"
         >
           <div className="max-w-3xl">
             {/* EYEBROW */}
-            <p className="uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-cream/60 mb-3">
+            <p className="uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-cream/60 mb-2.5">
               THE SECRETARIAT
             </p>
 
             {/* MAIN HEADING */}
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-cream mb-6 leading-[1.12]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-cream mb-4 leading-[1.12]">
               THE PEOPLE BEHIND
               <span className="block text-cream/90">THE CONFERENCE.</span>
             </h2>
 
             {/* INTRODUCTION & FOLLOW-UP LINE */}
-            <div className="font-sans text-base sm:text-lg text-cream/75 font-light leading-relaxed space-y-2 max-w-2xl">
+            <div className="font-sans text-base sm:text-lg text-cream/75 font-light leading-relaxed space-y-1.5 max-w-2xl">
               <p>
                 SGSITS MUN 2026 is shaped by a team that works long before the first gavel falls...
               </p>
@@ -171,7 +171,7 @@ export default function Secretariat() {
           </div>
 
           {/* RIGHT SIDE POSTER-INSPIRED ACCENT */}
-          <div className="flex flex-col items-start lg:items-end text-left lg:text-right space-y-1.5 font-mono text-xs md:text-sm tracking-[0.22em] text-cream/50 pt-2 border-l lg:border-l-0 lg:border-r border-cream/15 pl-4 lg:pl-0 lg:pr-4">
+          <div className="flex flex-col items-start lg:items-end text-left lg:text-right space-y-1 font-mono text-xs md:text-sm tracking-[0.22em] text-cream/50 pt-2 border-l lg:border-l-0 lg:border-r border-cream/15 pl-4 lg:pl-0 lg:pr-4">
             <span className="hover:text-cream/80 transition-colors">PEOPLE</span>
             <span className="hover:text-cream/80 transition-colors">PERSPECTIVES</span>
             <span className="hover:text-cream/80 transition-colors">PURPOSE</span>
@@ -182,9 +182,9 @@ export default function Secretariat() {
         {/* ========================================================
             SECTION 1 — CONFERENCE LEADERSHIP (4 LARGE CARDS)
         ========================================================= */}
-        <div className="mb-24 md:mb-32">
+        <div className="mb-14 md:mb-18">
           {/* SECTION LABEL DIVIDER */}
-          <div className="flex items-center gap-4 mb-10 md:mb-14">
+          <div className="flex items-center gap-4 mb-6 md:mb-10">
             <span className="h-[1px] bg-cream/15 flex-grow" />
             <span className="font-mono uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-cream/70 px-3">
               CONFERENCE LEADERSHIP
@@ -229,7 +229,7 @@ export default function Secretariat() {
                   </p>
 
                   {/* GOLDEN ACCENT DIVIDER RULE */}
-                  <span className="w-6 h-[2px] bg-[#e5a93c] rounded-full mb-3.5 mx-auto sm:mx-0 group-hover:w-10 transition-all duration-300" />
+                  <span className="w-6 h-[2px] bg-[#e5a93c] rounded-full mb-3 mx-auto sm:mx-0 group-hover:w-10 transition-all duration-300" />
 
                   {/* ONE-LINE ROLE DESCRIPTION */}
                   <p className="font-sans text-xs sm:text-sm text-cream/70 font-light leading-relaxed max-w-sm group-hover:text-cream/90 transition-colors duration-300">
@@ -242,11 +242,12 @@ export default function Secretariat() {
         </div>
 
         {/* ========================================================
-            SECTION 2 — THE EXECUTIVE TEAM (5 SMALL USG CARDS)
+            SECTION 2 — THE EXECUTIVE TEAM (MAGNIFIED USG CARDS)
+            Flowing seamlessly within the same unified section!
         ========================================================= */}
         <div>
           {/* SECTION LABEL DIVIDER */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-6">
             <span className="h-[1px] bg-cream/15 flex-grow" />
             <span className="font-mono uppercase tracking-[0.25em] text-xs md:text-sm font-semibold text-cream/70 px-3">
               THE EXECUTIVE TEAM
@@ -255,8 +256,8 @@ export default function Secretariat() {
           </div>
 
           {/* HEADING & DESCRIPTION */}
-          <div ref={execHeaderRef} className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-            <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-cream mb-3">
+          <div ref={execHeaderRef} className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
+            <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-cream mb-2">
               THE TEAM THAT MAKES IT HAPPEN.
             </h3>
             <p className="font-sans text-xs sm:text-sm md:text-base text-cream/65 font-light leading-relaxed">
@@ -264,69 +265,71 @@ export default function Secretariat() {
             </p>
           </div>
 
-          {/* USG 3 + 2 COMPOSITION */}
-          <div ref={execCardsRef} className="space-y-5">
+          {/* USG 3 + 2 COMPOSITION — MAGNIFIED & BALANCED */}
+          <div ref={execCardsRef} className="space-y-6">
             {/* FIRST ROW — 3 CARDS */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {executiveTeam.slice(0, 3).map((usg) => (
                 <div
                   key={usg.name}
                   tabIndex={0}
-                  className="usg-card group relative flex items-center gap-4 p-4 rounded-xl bg-[#081a3e]/55 border border-cream/15 hover:border-cream/35 hover:bg-[#0c2352]/75 transition-all duration-300 ease-out hover:-translate-y-1 shadow-[0_6px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_12px_28px_rgba(4,14,36,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7eb8f7]/50 cursor-default"
+                  className="usg-card group relative flex flex-col sm:flex-row items-center sm:items-stretch gap-5 p-5 sm:p-6 rounded-2xl bg-[#081a3e]/70 border border-cream/15 hover:border-[#7eb8f7]/50 hover:bg-[#0c2352]/85 transition-all duration-400 ease-out hover:-translate-y-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.45)] hover:shadow-[0_20px_45px_rgba(4,14,36,0.8),0_0_25px_rgba(126,184,247,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7eb8f7]/50 cursor-default"
                 >
-                  {/* SMALL PORTRAIT */}
-                  <div className="relative w-16 h-20 sm:w-18 sm:h-22 rounded-lg overflow-hidden flex-shrink-0 border border-cream/20 bg-navy">
+                  {/* MAGNIFIED PORTRAIT — Just slightly smaller than Conference Leadership cards */}
+                  <div className="relative w-28 h-38 sm:w-32 sm:h-44 md:w-36 md:h-48 rounded-xl overflow-hidden flex-shrink-0 border border-cream/20 bg-navy shadow-md">
                     <Image
                       src={usg.image}
                       alt={usg.name}
                       fill
-                      sizes="80px"
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 120px, 160px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#040e24]/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#040e24]/65 via-transparent to-transparent pointer-events-none" />
                   </div>
 
-                  {/* NAME & DESIGNATION ONLY (NO BIO) */}
-                  <div className="flex flex-col justify-center min-w-0 flex-1">
-                    <h4 className="font-display text-sm sm:text-base font-bold text-cream tracking-wide truncate group-hover:text-white transition-colors duration-200">
+                  {/* NAME & DESIGNATION */}
+                  <div className="flex flex-col justify-center text-center sm:text-left min-w-0 flex-1 py-1">
+                    <h4 className="font-display text-base sm:text-lg md:text-xl font-bold text-cream tracking-wide group-hover:text-white transition-colors duration-300">
                       {usg.name}
                     </h4>
-                    <p className="font-mono text-[10px] sm:text-xs text-[#7eb8f7] uppercase tracking-wider font-medium mt-1 leading-snug">
+                    <p className="font-mono text-xs sm:text-sm text-[#7eb8f7] uppercase tracking-[0.16em] font-semibold mt-1.5 leading-snug">
                       {usg.role}
                     </p>
+                    <span className="w-6 h-[2px] bg-[#e5a93c] rounded-full mt-3 mx-auto sm:mx-0 group-hover:w-10 transition-all duration-300" />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* SECOND ROW — 2 CARDS CENTERED */}
-            <div className="flex flex-col sm:flex-row justify-center gap-5 max-w-4xl mx-auto">
+            {/* SECOND ROW — 2 CARDS CENTERED WITH MATCHING CARD WIDTH */}
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
               {executiveTeam.slice(3, 5).map((usg) => (
                 <div
                   key={usg.name}
                   tabIndex={0}
-                  className="usg-card group relative flex items-center gap-4 p-4 rounded-xl bg-[#081a3e]/55 border border-cream/15 hover:border-cream/35 hover:bg-[#0c2352]/75 transition-all duration-300 ease-out hover:-translate-y-1 shadow-[0_6px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_12px_28px_rgba(4,14,36,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7eb8f7]/50 cursor-default w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.85rem)]"
+                  className="usg-card group relative flex flex-col sm:flex-row items-center sm:items-stretch gap-5 p-5 sm:p-6 rounded-2xl bg-[#081a3e]/70 border border-cream/15 hover:border-[#7eb8f7]/50 hover:bg-[#0c2352]/85 transition-all duration-400 ease-out hover:-translate-y-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.45)] hover:shadow-[0_20px_45px_rgba(4,14,36,0.8),0_0_25px_rgba(126,184,247,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7eb8f7]/50 cursor-default w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
                 >
-                  {/* SMALL PORTRAIT */}
-                  <div className="relative w-16 h-20 sm:w-18 sm:h-22 rounded-lg overflow-hidden flex-shrink-0 border border-cream/20 bg-navy">
+                  {/* MAGNIFIED PORTRAIT — Just slightly smaller than Conference Leadership cards */}
+                  <div className="relative w-28 h-38 sm:w-32 sm:h-44 md:w-36 md:h-48 rounded-xl overflow-hidden flex-shrink-0 border border-cream/20 bg-navy shadow-md">
                     <Image
                       src={usg.image}
                       alt={usg.name}
                       fill
-                      sizes="80px"
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 120px, 160px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#040e24]/60 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#040e24]/65 via-transparent to-transparent pointer-events-none" />
                   </div>
 
-                  {/* NAME & DESIGNATION ONLY (NO BIO) */}
-                  <div className="flex flex-col justify-center min-w-0 flex-1">
-                    <h4 className="font-display text-sm sm:text-base font-bold text-cream tracking-wide truncate group-hover:text-white transition-colors duration-200">
+                  {/* NAME & DESIGNATION */}
+                  <div className="flex flex-col justify-center text-center sm:text-left min-w-0 flex-1 py-1">
+                    <h4 className="font-display text-base sm:text-lg md:text-xl font-bold text-cream tracking-wide group-hover:text-white transition-colors duration-300">
                       {usg.name}
                     </h4>
-                    <p className="font-mono text-[10px] sm:text-xs text-[#7eb8f7] uppercase tracking-wider font-medium mt-1 leading-snug">
+                    <p className="font-mono text-xs sm:text-sm text-[#7eb8f7] uppercase tracking-[0.16em] font-semibold mt-1.5 leading-snug">
                       {usg.role}
                     </p>
+                    <span className="w-6 h-[2px] bg-[#e5a93c] rounded-full mt-3 mx-auto sm:mx-0 group-hover:w-10 transition-all duration-300" />
                   </div>
                 </div>
               ))}
