@@ -470,78 +470,14 @@ export default function ImageShowcase() {
         "
       />
 
-      {/* ========================================================
-          HEADER
-      ========================================================= */}
-      <div
-        className="
-          text-center
-          z-40
-          max-w-2xl
-          mx-auto
-          flex
-          flex-col
-          items-center
-          gap-2
-          select-none
-          group
-          cursor-default
-        "
-      >
-        <h2
-          className="
-            relative
-            font-display
-            text-lg
-            sm:text-xl
-            md:text-2xl
-            lg:text-3xl
-            font-semibold
-            uppercase
-            tracking-[0.22em]
-            text-cream
-            transition-all
-            duration-500
-            ease-out
-            hover:tracking-[0.28em]
-            hover:drop-shadow-[0_0_20px_rgba(248,240,229,0.5)]
-          "
-        >
-          THE JOURNEY SO FAR
-
-          <span
-            className="
-              absolute
-              bottom-[-6px]
-              left-1/2
-              -translate-x-1/2
-              w-0
-              h-[1.5px]
-              bg-cream
-              rounded-full
-              transition-all
-              duration-500
-              group-hover:w-2/3
-            "
-          />
+      {/* Header text with smooth interactive hover effects */}
+      <div className="text-center z-40 max-w-3xl mx-auto flex flex-col items-center gap-2 select-none group cursor-default">
+        <h2 className="relative font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-[0.22em] text-cream transition-all duration-500 ease-out hover:tracking-[0.28em] hover:drop-shadow-[0_0_20px_rgba(248,240,229,0.5)]">
+          A JOURNEY BUILT ON DIALOGUE
+          <span className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-[#7eb8f7] rounded-full transition-all duration-500 group-hover:w-2/3" />
         </h2>
-
-        <p
-          className="
-            font-sans
-            text-xs
-            sm:text-sm
-            md:text-base
-            text-cream/70
-            font-light
-            tracking-wide
-            transition-all
-            duration-300
-            group-hover:text-cream/95
-            group-hover:drop-shadow-[0_0_12px_rgba(248,240,229,0.35)]
-          "
-        >
-          Debates, people, moments.
+        <p className="font-sans text-xs sm:text-sm md:text-base text-cream/70 font-light tracking-wide transition-all duration-300 group-hover:text-cream/95 group-hover:drop-shadow-[0_0_12px_rgba(126,184,247,0.35)] max-w-xl mx-auto">
+          From our first session to the conversations that continue to shape us.
         </p>
       </div>
 

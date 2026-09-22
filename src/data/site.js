@@ -4,7 +4,7 @@
 
 export const event = {
   name: "SGSITS MUN 2026",
-  theme: "DIGIT",
+  theme: "PRISM",
   dates: "10 & 11 October 2026",
   targetDate: "2026-10-10T09:00:00+05:30",
   venue: "SGSITS, Indore",
@@ -14,50 +14,129 @@ export const event = {
 };
 
 export const themePillars = [
-  { letter: "D", title: "Democracy", desc: "Representation, consent, and what it means for institutions to actually serve people." },
-  { letter: "I", title: "Innovation", desc: "New tools, new problems, new responsibilities and who gets to decide." },
-  { letter: "G", title: "Global", desc: "No challenge that matters stops at a border. Neither should the debate." },
-  { letter: "I", title: "Inclusion", desc: "Policy without equity is incomplete. Who sits at the table, and who should." },
-  { letter: "T", title: "Technology", desc: "Governing what we build before it governs us the defining challenge of this decade." },
+  {
+    letter: "P",
+    title: "PEACE",
+    desc: "The pursuit of stability in a world shaped by competing interests, uncertainty and conflict.",
+  },
+  {
+    letter: "R",
+    title: "RIGHTS",
+    desc: "The principles that define dignity, equality and the freedoms every society must confront.",
+  },
+  {
+    letter: "I",
+    title: "INTEGRITY",
+    desc: "The responsibility to uphold justice, accountability and institutions when they are tested.",
+  },
+  {
+    letter: "S",
+    title: "STATECRAFT",
+    desc: "The art of turning competing interests, public voices and difficult choices into collective decisions.",
+  },
+  {
+    letter: "M",
+    title: "MORALITY",
+    desc: "The questions that emerge when duty, loyalty, ambition and consequence stand on opposite sides.",
+  },
 ];
 
 export const committees = [
   {
-  name: "Lok Sabha",
-  tag: "House of the People",
-  type: "Parliamentary",
-  desc: "India's lower house of Parliament — where legislation is debated, amended and passed by elected representatives.",
-},
-{
-  name: "Mahabharata",
-  tag: "The Great Indian Epic",
-  type: "Mythology & Literature",
-  desc: "One of India's foundational epics, following the Kuru dynasty and the devastating conflict between the Pandavas and Kauravas.",
-},
-{
-  name: "UNHRC",
-  tag: "United Nations Human Rights Council",
-  type: "United Nations",
-  desc: "The UN's principal human rights body examines violations, promotes fundamental freedoms and addresses urgent rights crises worldwide.",
-},
-{
-  name: "DISEC",
-  tag: "Disarmament & International Security",
-  type: "United Nations",
-  desc: "The UN's First Committee tackles global security challenges, from nuclear weapons and arms control to emerging military technologies.",
-},
-{
-  name: "UNODC",
-  tag: "United Nations Office on Drugs & Crime",
-  type: "United Nations",
-  desc: "The UN's leading forum on organized crime, illicit drugs, corruption and international criminal justice.",
-},
+    num: "01",
+    name: "LOK SABHA",
+    tag: "The House of the People",
+    desc: "A forum where competing visions of governance meet. Debate, negotiate and legislate as elected representatives navigating the complexities of a living democracy.",
+    question: "What should a democracy demand of those who govern it?",
+  },
+  {
+    num: "02",
+    name: "MAHABHARATA",
+    tag: "An Epic of Power, Duty & Consequence",
+    desc: "Step into an age where alliances shift, loyalties are tested and every decision carries a consequence. Navigate the politics, dilemmas and conflicts that precede the great war of Kurukshetra.",
+    question: "When duty and morality collide, which path do you choose?",
+  },
+  {
+    num: "03",
+    name: "UNHRC",
+    tag: "United Nations Human Rights Council",
+    desc: "A forum dedicated to the protection of human dignity and fundamental freedoms, where nations confront violations, negotiate solutions and debate the responsibilities of the international community.",
+    question: "Who protects rights when the world disagrees on what justice requires?",
+  },
+  {
+    num: "04",
+    name: "DISEC",
+    tag: "Disarmament & International Security Committee",
+    desc: "The arena of international security, where nations confront questions of disarmament, military technology, weapons proliferation and the delicate pursuit of peace.",
+    question: "How do nations pursue security without making conflict inevitable?",
+  },
+  {
+    num: "05",
+    name: "UNODC",
+    tag: "United Nations Office on Drugs & Crime",
+    desc: "A forum confronting the challenges that cross borders—from organized crime and illicit trafficking to corruption and international criminal justice.",
+    question: "How does the world fight problems that know no borders?",
+  },
+];
+
+export const conferenceLeadership = [
+  {
+    name: "ROHAN SINGHAL",
+    role: "SECRETARY GENERAL",
+    bio: "Setting the vision and guiding the Secretariat behind SGSITS MUN 2026.",
+    image: "/assets/secretariat/rohan.jpg",
+  },
+  {
+    name: "NIKUNJ AGRAWAL",
+    role: "DIRECTOR GENERAL",
+    bio: "Driving strategy, coordination and execution across the conference.",
+    image: "/assets/secretariat/nikunj.jpg",
+  },
+  {
+    name: "ANYA AGRAWAL",
+    role: "ADDITIONAL SECRETARY GENERAL",
+    bio: "Supporting the Secretariat in shaping a seamless conference experience.",
+    image: "/assets/secretariat/anya.jpg",
+  },
+  {
+    name: "SURYA SINGH",
+    role: "MUN COORDINATOR",
+    bio: "Connecting people, teams and operations to bring the conference together.",
+    image: "/assets/secretariat/surya.jpg",
+  },
+];
+
+export const executiveTeam = [
+  {
+    name: "RAJIV PARA",
+    role: "USG — DELEGATE AFFAIRS",
+    image: "/assets/secretariat/rajiv.jpg",
+  },
+  {
+    name: "ALKESH RAJPUT",
+    role: "USG — LOGISTICS & HOSPITALITY",
+    image: "/assets/secretariat/alkesh.jpg",
+  },
+  {
+    name: "VENKATESH",
+    role: "USG — LOGISTICS & HOSPITALITY",
+    image: "/assets/secretariat/venkatesh.jpg",
+  },
+  {
+    name: "YASH",
+    role: "USG — TECH AFFAIRS",
+    image: "/assets/secretariat/yash.jpg",
+  },
+  {
+    name: "SAHARSH SINGH",
+    role: "USG — INTERNATIONAL PRESS",
+    image: "/assets/secretariat/saharsh.jpg",
+  },
 ];
 
 export const secretariat = [
-  { name: "Surya Pratap Singh", role: "MUN-Coordinator", quote: "Leading the organization with vision and dedication", image: "/assets/Surya.jpg" },
-  { name: "Alkesh Rajput", role: "USG-Logistics", quote: "Ensuring everything runs smoothly behind the scenes", image: "/assets/Alkesh.jpg" },
-  // Add remaining secretariat members here
+  ...conferenceLeadership.map((m) => ({ name: m.name, role: m.role, quote: m.bio, image: m.image })),
+  ...executiveTeam.map((m) => ({ name: m.name, role: m.role, quote: m.role, image: m.image })),
 ];
 
 export const story = {
