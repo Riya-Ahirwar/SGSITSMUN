@@ -3,23 +3,31 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
+const TILE_SIZE = 60; // 60px grid tiles
+
+// Only while a tile tweens; on all 576 statically it made every style recalc expensive.
+const WILL_CHANGE = "transform, box-shadow, background-color, border-color";
+const promote = (el) => { if (el) el.style.willChange = WILL_CHANGE; };
+const demote = (el) => { if (el) el.style.willChange = "auto"; };
+
 export default function AnimatedGridBackground() {
     const containerRef = useRef(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-    const TILE_SIZE = 60; // 60px grid tiles
     const hoverIndexRef = useRef(-1);
     const activeNeighborsRef = useRef([]);
 
     // Track hero container dimensions dynamically
     useEffect(() => {
         const updateSize = () => {
-            if (containerRef.current) {
-                const rect = containerRef.current.getBoundingClientRect();
-                setDimensions({
-                    width: rect.width || window.innerWidth,
-                    height: rect.height || window.innerHeight,
-                });
-            }
+            if (!containerRef.current) return;
+            const rect = containerRef.current.getBoundingClientRect();
+            const width = rect.width || window.innerWidth;
+            const height = rect.height || window.innerHeight;
+
+            // Same numbers must return the same object or every no-op resize rebuilds the grid.
+            setDimensions((prev) =>
+                prev.width === width && prev.height === height ? prev : { width, height }
+            );
         };
 
         const observer = new ResizeObserver(updateSize);
@@ -40,13 +48,15 @@ export default function AnimatedGridBackground() {
     const totalTiles = cols * rows;
 
     useEffect(() => {
-        if (totalTiles === 0 || !dimensions.width || !dimensions.height) return;
+        const container = containerRef.current;
+        if (!container || totalTiles === 0 || !dimensions.width || !dimensions.height) return;
 
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const tiles = gsap.utils.toArray(".anim-tile", containerRef.current);
+        const tiles = gsap.utils.toArray(".anim-tile", container);
         if (!tiles.length) return;
 
         let isKilled = false;
+        let isOnScreen = true;
 
         // -----------------------------
         // SUBTLE DARK AMBIENT PULSE ANIMATION
@@ -58,10 +68,12 @@ export default function AnimatedGridBackground() {
             const tile = tiles[randomIndex];
 
             if (
+                isOnScreen &&
                 randomIndex !== hoverIndexRef.current &&
                 !activeNeighborsRef.current.includes(randomIndex) &&
                 tile
             ) {
+                promote(tile);
                 gsap.to(tile, {
                     duration: 2.2,
                     backgroundColor: "rgba(30, 65, 120, 0.12)",
@@ -71,6 +83,7 @@ export default function AnimatedGridBackground() {
                     yoyo: true,
                     repeat: 1,
                     onComplete: () => {
+                        demote(tile);
                         if (!isKilled) {
                             gsap.delayedCall(Math.random() * 3 + 2, animateRandomTile);
                         }
@@ -90,15 +103,17 @@ export default function AnimatedGridBackground() {
         // Reset tile back to dark subtle base state
         const resetTile = (index, duration = 0.6) => {
             if (index >= 0 && index < totalTiles && tiles[index]) {
-                gsap.killTweensOf(tiles[index]);
-                gsap.to(tiles[index], {
+                const tile = tiles[index];
+                gsap.killTweensOf(tile);
+                gsap.to(tile, {
                     duration,
                     backgroundColor: "transparent",
                     borderColor: "rgba(35, 65, 125, 0.07)",
                     boxShadow: "none",
                     scale: 1,
                     ease: "power2.out",
-                    zIndex: 1
+                    zIndex: 1,
+                    onComplete: () => demote(tile)
                 });
             }
         };
@@ -106,13 +121,27 @@ export default function AnimatedGridBackground() {
         // -----------------------------
         // MOUSE HOVER TRACKING (DARK & SUBTLE)
         // -----------------------------
-        const handleMouseMove = (e) => {
-            const container = containerRef.current;
-            if (!container) return;
+        // Container is pointer-events-none, so the listener has to live on window.
+        let rect = null;
+        let rectIsStale = true;
+        let frameId = 0;
+        let pointerX = 0;
+        let pointerY = 0;
 
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+        const invalidateRect = () => { rectIsStale = true; };
+
+        const applyPointer = () => {
+            frameId = 0;
+            if (!isOnScreen) return;
+
+            // Deferred: a scroll costs no layout, a sweep costs one read per frame.
+            if (rectIsStale) {
+                rect = container.getBoundingClientRect();
+                rectIsStale = false;
+            }
+
+            const x = pointerX - rect.left;
+            const y = pointerY - rect.top;
 
             const isOutOfBounds = x < 0 || x > rect.width || y < 0 || y > rect.height;
 
@@ -158,6 +187,7 @@ export default function AnimatedGridBackground() {
                 // Highlight hovered tile: muted dark blue highlight, soft dark glow
                 if (currentIndex !== -1 && currentIndex < totalTiles && tiles[currentIndex]) {
                     gsap.killTweensOf(tiles[currentIndex]);
+                    promote(tiles[currentIndex]);
                     gsap.to(tiles[currentIndex], {
                         duration: prefersReducedMotion ? 0 : 0.15,
                         backgroundColor: "rgba(45, 95, 175, 0.18)",
@@ -173,6 +203,7 @@ export default function AnimatedGridBackground() {
                 newNeighbors.forEach((nIdx) => {
                     if (nIdx < totalTiles && tiles[nIdx] && nIdx !== currentIndex) {
                         gsap.killTweensOf(tiles[nIdx]);
+                        promote(tiles[nIdx]);
                         gsap.to(tiles[nIdx], {
                             duration: prefersReducedMotion ? 0 : 0.25,
                             backgroundColor: "rgba(35, 75, 140, 0.06)",
@@ -187,6 +218,13 @@ export default function AnimatedGridBackground() {
             }
         };
 
+        const handleMouseMove = (e) => {
+            if (!isOnScreen) return;
+            pointerX = e.clientX;
+            pointerY = e.clientY;
+            if (!frameId) frameId = requestAnimationFrame(applyPointer);
+        };
+
         const handleMouseLeave = () => {
             if (hoverIndexRef.current !== -1) {
                 resetTile(hoverIndexRef.current, 0.7);
@@ -196,16 +234,29 @@ export default function AnimatedGridBackground() {
             activeNeighborsRef.current = [];
         };
 
-        window.addEventListener("mousemove", handleMouseMove);
+        const observer = new IntersectionObserver(([entry]) => {
+            isOnScreen = entry.isIntersecting;
+            invalidateRect();
+            if (!isOnScreen) handleMouseLeave();
+        });
+        observer.observe(container);
+
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        window.addEventListener("scroll", invalidateRect, { passive: true });
+        window.addEventListener("resize", invalidateRect);
         document.body.addEventListener("mouseleave", handleMouseLeave);
 
         return () => {
             isKilled = true;
+            if (frameId) cancelAnimationFrame(frameId);
+            observer.disconnect();
             window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("scroll", invalidateRect);
+            window.removeEventListener("resize", invalidateRect);
             document.body.removeEventListener("mouseleave", handleMouseLeave);
             tiles.forEach((t) => gsap.killTweensOf(t));
         };
-    }, [totalTiles, cols, rows, dimensions]);
+    }, [totalTiles, cols, rows, dimensions.width, dimensions.height]);
 
     if (totalTiles === 0) return null;
 
@@ -220,11 +271,11 @@ export default function AnimatedGridBackground() {
             }}
         >
             {Array.from({ length: totalTiles }).map((_, i) => (
+                // No transition-colors: GSAP writes these inline every frame and the two fight.
                 <div
                     key={i}
-                    className="anim-tile w-full h-full border border-[rgba(35,65,125,0.07)] origin-center box-border transition-colors duration-100"
+                    className="anim-tile w-full h-full border border-[rgba(35,65,125,0.07)] origin-center box-border"
                     style={{
-                        willChange: "transform, box-shadow, background-color, border-color",
                         backgroundColor: "transparent",
                         zIndex: 1,
                     }}
@@ -233,5 +284,3 @@ export default function AnimatedGridBackground() {
         </div>
     );
 }
-
-

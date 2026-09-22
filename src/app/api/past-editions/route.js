@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/mongodb";
 import PastEdition from "@/models/PastEdition";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   await connectDB();

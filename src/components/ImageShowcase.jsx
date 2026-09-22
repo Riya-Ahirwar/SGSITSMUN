@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SHOWCASE_IMAGES = [
   {
@@ -36,117 +38,437 @@ const SHOWCASE_IMAGES = [
 export default function ImageShowcase() {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  const imgRefs = useRef([]);
+  const cardRefs = useRef([]);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const container = containerRef.current;
+    const cards = cardRefs.current.filter(Boolean);
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const cards = imgRefs.current.filter(Boolean);
-
-    if (cards.length !== 5 || !sectionRef.current) return;
+    if (!section || !container || cards.length !== 5) {
+      console.warn(
+        "ImageShowcase: expected 5 cards but found",
+        cards.length
+      );
+      return;
+    }
 
     const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        return;
-      }
-
       const mm = gsap.matchMedia();
 
-      // DESKTOP (>= 1024px)
-      mm.add("(min-width: 1024px)", () => {
-        // Initial setup: all cards centered and overlapping on the exact same baseline
-        gsap.set(cards[0], { x: 0, y: 0, scale: 0.88, rotation: 0, opacity: 0.8, zIndex: 10 });
-        gsap.set(cards[1], { x: 0, y: 0, scale: 0.94, rotation: 0, opacity: 0.9, zIndex: 20 });
-        gsap.set(cards[2], { x: 0, y: 0, scale: 1.0, rotation: 0, opacity: 1, zIndex: 30 });
-        gsap.set(cards[3], { x: 0, y: 0, scale: 0.94, rotation: 0, opacity: 0.9, zIndex: 20 });
-        gsap.set(cards[4], { x: 0, y: 0, scale: 0.88, rotation: 0, opacity: 0.8, zIndex: 10 });
+      /*
+       * ----------------------------------------------------------
+       * Common initial state
+       * ----------------------------------------------------------
+       *
+       * IMPORTANT:
+       * We use GSAP xPercent/yPercent instead of Tailwind
+       * -translate-x-1/2 / -translate-y-1/2.
+       *
+       * This prevents CSS transform and GSAP transform conflicts.
+       */
+      const setInitialState = (settings) => {
+        cards.forEach((card, index) => {
+          gsap.set(card, {
+            x: 0,
+            y: 0,
+            xPercent: -50,
+            yPercent: -50,
+            scale: settings[index].scale,
+            opacity: settings[index].opacity,
+            rotation: 0,
+            zIndex: settings[index].zIndex,
+            force3D: true,
+            transformOrigin: "center center",
+          });
+        });
+      };
 
-        const tl = gsap.timeline({
+      /*
+       * ==========================================================
+       * DESKTOP
+       * ==========================================================
+       */
+      mm.add("(min-width: 1024px)", () => {
+        setInitialState([
+          {
+            scale: 0.88,
+            opacity: 0.8,
+            zIndex: 10,
+          },
+          {
+            scale: 0.94,
+            opacity: 0.9,
+            zIndex: 20,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            zIndex: 30,
+          },
+          {
+            scale: 0.94,
+            opacity: 0.9,
+            zIndex: 20,
+          },
+          {
+            scale: 0.88,
+            opacity: 0.8,
+            zIndex: 10,
+          },
+        ]);
+
+        const timeline = gsap.timeline({
+          defaults: {
+            ease: "power2.inOut",
+          },
+
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: section,
             start: "top top",
             end: "+=120%",
             pin: true,
+            pinSpacing: true,
             scrub: 1,
             anticipatePin: 1,
+            refreshPriority: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        // SIMULTANEOUS MOVEMENT: all 5 cards move outward on the exact SAME horizontal level (y: 0)
-        tl.to(cards[0], { x: "-36vw", y: 0, scale: 0.92, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[1], { x: "-18vw", y: 0, scale: 0.96, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[2], { x: 0, y: 0, scale: 1.05, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[3], { x: "18vw", y: 0, scale: 0.96, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[4], { x: "36vw", y: 0, scale: 0.92, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0);
+        timeline
+          .to(
+            cards[0],
+            {
+              x: "-36vw",
+              scale: 0.92,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[1],
+            {
+              x: "-18vw",
+              scale: 0.96,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[2],
+            {
+              x: 0,
+              scale: 1.05,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[3],
+            {
+              x: "18vw",
+              scale: 0.96,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[4],
+            {
+              x: "36vw",
+              scale: 0.92,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          );
+
+        return () => {
+          timeline.kill();
+        };
       });
 
-      // TABLET (768px - 1023px)
+      /*
+       * ==========================================================
+       * TABLET
+       * ==========================================================
+       */
       mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
-        gsap.set(cards[0], { x: 0, y: 0, scale: 0.88, rotation: 0, opacity: 0.8, zIndex: 10 });
-        gsap.set(cards[1], { x: 0, y: 0, scale: 0.94, rotation: 0, opacity: 0.9, zIndex: 20 });
-        gsap.set(cards[2], { x: 0, y: 0, scale: 1.0, rotation: 0, opacity: 1, zIndex: 30 });
-        gsap.set(cards[3], { x: 0, y: 0, scale: 0.94, rotation: 0, opacity: 0.9, zIndex: 20 });
-        gsap.set(cards[4], { x: 0, y: 0, scale: 0.88, rotation: 0, opacity: 0.8, zIndex: 10 });
+        setInitialState([
+          {
+            scale: 0.88,
+            opacity: 0.8,
+            zIndex: 10,
+          },
+          {
+            scale: 0.94,
+            opacity: 0.9,
+            zIndex: 20,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            zIndex: 30,
+          },
+          {
+            scale: 0.94,
+            opacity: 0.9,
+            zIndex: 20,
+          },
+          {
+            scale: 0.88,
+            opacity: 0.8,
+            zIndex: 10,
+          },
+        ]);
 
-        const tl = gsap.timeline({
+        const timeline = gsap.timeline({
+          defaults: {
+            ease: "power2.inOut",
+          },
+
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: section,
             start: "top top",
             end: "+=100%",
             pin: true,
+            pinSpacing: true,
             scrub: 1,
             anticipatePin: 1,
+            refreshPriority: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        tl.to(cards[0], { x: "-32vw", y: 0, scale: 0.88, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[1], { x: "-16vw", y: 0, scale: 0.94, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[2], { x: 0, y: 0, scale: 1.02, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[3], { x: "16vw", y: 0, scale: 0.94, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[4], { x: "32vw", y: 0, scale: 0.88, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0);
+        timeline
+          .to(
+            cards[0],
+            {
+              x: "-32vw",
+              scale: 0.88,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[1],
+            {
+              x: "-16vw",
+              scale: 0.94,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[2],
+            {
+              x: 0,
+              scale: 1.02,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[3],
+            {
+              x: "16vw",
+              scale: 0.94,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[4],
+            {
+              x: "32vw",
+              scale: 0.88,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          );
+
+        return () => {
+          timeline.kill();
+        };
       });
 
-      // MOBILE (< 768px)
+      /*
+       * ==========================================================
+       * MOBILE
+       * ==========================================================
+       */
       mm.add("(max-width: 767px)", () => {
-        gsap.set(cards[0], { x: 0, y: 0, scale: 0.85, rotation: 0, opacity: 0.75, zIndex: 10 });
-        gsap.set(cards[1], { x: 0, y: 0, scale: 0.92, rotation: 0, opacity: 0.85, zIndex: 20 });
-        gsap.set(cards[2], { x: 0, y: 0, scale: 1.0, rotation: 0, opacity: 1, zIndex: 30 });
-        gsap.set(cards[3], { x: 0, y: 0, scale: 0.92, rotation: 0, opacity: 0.85, zIndex: 20 });
-        gsap.set(cards[4], { x: 0, y: 0, scale: 0.85, rotation: 0, opacity: 0.75, zIndex: 10 });
+        setInitialState([
+          {
+            scale: 0.85,
+            opacity: 0.75,
+            zIndex: 10,
+          },
+          {
+            scale: 0.92,
+            opacity: 0.85,
+            zIndex: 20,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            zIndex: 30,
+          },
+          {
+            scale: 0.92,
+            opacity: 0.85,
+            zIndex: 20,
+          },
+          {
+            scale: 0.85,
+            opacity: 0.75,
+            zIndex: 10,
+          },
+        ]);
 
-        const tl = gsap.timeline({
+        const timeline = gsap.timeline({
+          defaults: {
+            ease: "power2.inOut",
+          },
+
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: section,
             start: "top top",
             end: "+=90%",
             pin: true,
+            pinSpacing: true,
             scrub: 1,
             anticipatePin: 1,
+            refreshPriority: 1,
             invalidateOnRefresh: true,
           },
         });
 
-        tl.to(cards[0], { x: "-24vw", y: 0, scale: 0.84, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[1], { x: "-12vw", y: 0, scale: 0.92, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[2], { x: 0, y: 0, scale: 1.0, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[3], { x: "12vw", y: 0, scale: 0.92, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0)
-          .to(cards[4], { x: "24vw", y: 0, scale: 0.84, rotation: 0, opacity: 1, ease: "power1.inOut" }, 0);
+        timeline
+          .to(
+            cards[0],
+            {
+              x: "-24vw",
+              scale: 0.84,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[1],
+            {
+              x: "-12vw",
+              scale: 0.92,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[2],
+            {
+              x: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[3],
+            {
+              x: "12vw",
+              scale: 0.92,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          )
+          .to(
+            cards[4],
+            {
+              x: "24vw",
+              scale: 0.84,
+              opacity: 1,
+              duration: 1,
+            },
+            0
+          );
+
+        return () => {
+          timeline.kill();
+        };
+      });
+
+      /*
+       * Refresh after everything has been initialized.
+       */
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#040e24] text-cream flex flex-col items-center justify-center pt-28 md:pt-32 pb-10 md:pb-14 px-4 overflow-hidden select-none gap-6 md:gap-10"
+      className="
+        relative
+        w-full
+        min-h-screen
+        bg-navy
+        text-cream
+        flex
+        flex-col
+        items-center
+        justify-center
+        pt-28
+        md:pt-32
+        pb-10
+        md:pb-14
+        px-4
+        overflow-hidden
+        select-none
+        gap-6
+        md:gap-10
+      "
     >
-      {/* Background ambient gradient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[900px] h-[400px] md:h-[600px] bg-gradient-to-r from-[#082052]/40 via-[#1e3a8a]/20 to-[#082052]/40 rounded-full blur-3xl pointer-events-none -z-10" />
+      {/* ========================================================
+          BACKGROUND GLOW — cream-tinted, matching WaysIn/Committees
+      ========================================================= */}
+      <div
+        className="
+          absolute
+          top-1/2
+          left-1/2
+          -translate-x-1/2
+          -translate-y-1/2
+          w-[600px]
+          md:w-[900px]
+          h-[400px]
+          md:h-[600px]
+          bg-cream/10
+          rounded-full
+          blur-3xl
+          pointer-events-none
+          -z-10
+        "
+      />
 
       {/* Header text with smooth interactive hover effects */}
       <div className="text-center z-40 max-w-3xl mx-auto flex flex-col items-center gap-2 select-none group cursor-default">
@@ -159,41 +481,139 @@ export default function ImageShowcase() {
         </p>
       </div>
 
-      {/* 5-Image Showcase Stage — same horizontal baseline */}
+      {/* ========================================================
+          IMAGE SHOWCASE STAGE
+      ========================================================= */}
       <div
         ref={containerRef}
-        className="relative w-full max-w-7xl h-[280px] sm:h-[320px] md:h-[370px] flex items-center justify-center"
+        className="
+          relative
+          w-full
+          max-w-7xl
+          h-[280px]
+          sm:h-[320px]
+          md:h-[370px]
+          flex
+          items-center
+          justify-center
+        "
       >
-        {SHOWCASE_IMAGES.map((item, idx) => {
-          const isCenter = idx === 2;
+        {SHOWCASE_IMAGES.map((item, index) => {
+          const isCenter = index === 2;
+
           return (
             <div
-              key={idx}
-              ref={(el) => (imgRefs.current[idx] = el)}
-              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl overflow-hidden border border-cream/20 shadow-[0_20px_50px_rgba(0,0,0,0.85)] bg-navy transition-shadow duration-300 will-change-transform ${
-                isCenter
-                  ? "w-[170px] sm:w-[200px] md:w-[235px] lg:w-[260px] aspect-[4/5] ring-2 ring-[#7eb8f7]/50"
-                  : "w-[155px] sm:w-[185px] md:w-[215px] lg:w-[240px] aspect-[4/5]"
-              }`}
+              key={item.src}
+              ref={(element) => {
+                cardRefs.current[index] = element;
+              }}
+              className={`
+                absolute
+                top-1/2
+                left-1/2
+                rounded-2xl
+                overflow-hidden
+                border
+                border-cream/20
+                shadow-[0_20px_50px_rgba(0,0,0,0.85)]
+                bg-navy
+                will-change-transform
+                ${
+                  isCenter
+                    ? `
+                      w-[170px]
+                      sm:w-[200px]
+                      md:w-[235px]
+                      lg:w-[260px]
+                      aspect-[4/5]
+                      ring-2
+                      ring-cream/50
+                    `
+                    : `
+                      w-[155px]
+                      sm:w-[185px]
+                      md:w-[215px]
+                      lg:w-[240px]
+                      aspect-[4/5]
+                    `
+                }
+              `}
             >
               <div className="relative w-full h-full group">
+                {/* IMAGE */}
                 <Image
                   src={item.src}
                   alt={item.alt}
                   fill
-                  sizes="(max-width: 768px) 40vw, 25vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  priority={isCenter}
+                  sizes="
+                    (max-width: 640px) 40vw,
+                    (max-width: 768px) 35vw,
+                    (max-width: 1024px) 25vw,
+                    260px
+                  "
+                  className="
+                    object-cover
+                    transition-transform
+                    duration-500
+                    group-hover:scale-105
+                  "
+                  priority={index <= 2}
                 />
-                {/* Subtle dark gradient overlay on image */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040e24]/85 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300" />
 
-                {/* Caption tag */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                  <span className="text-[10px] md:text-xs font-medium tracking-wider text-cream/90 uppercase drop-shadow-md truncate pr-1">
+                {/* IMAGE GRADIENT — navy, matching hero overlay */}
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-gradient-to-t
+                    from-navy/85
+                    via-transparent
+                    to-transparent
+                    opacity-80
+                    group-hover:opacity-60
+                    transition-opacity
+                    duration-300
+                  "
+                />
+
+                {/* CAPTION */}
+                <div
+                  className="
+                    absolute
+                    bottom-3
+                    left-3
+                    right-3
+                    flex
+                    items-center
+                    justify-between
+                    pointer-events-none
+                  "
+                >
+                  <span
+                    className="
+                      text-[10px]
+                      md:text-xs
+                      font-medium
+                      tracking-wider
+                      text-cream/90
+                      uppercase
+                      drop-shadow-md
+                      truncate
+                      pr-1
+                    "
+                  >
                     {item.caption}
                   </span>
-                  <span className="text-[10px] text-cream/50 font-mono">0{idx + 1}</span>
+
+                  <span
+                    className="
+                      text-[10px]
+                      text-cream/50
+                      font-mono
+                    "
+                  >
+                    0{index + 1}
+                  </span>
                 </div>
               </div>
             </div>
@@ -203,4 +623,3 @@ export default function ImageShowcase() {
     </section>
   );
 }
-

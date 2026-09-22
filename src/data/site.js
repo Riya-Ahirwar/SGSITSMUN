@@ -6,6 +6,7 @@ export const event = {
   name: "SGSITS MUN 2026",
   theme: "PRISM",
   dates: "10 & 11 October 2026",
+  targetDate: "2026-10-10T09:00:00+05:30",
   venue: "SGSITS, Indore",
   city: "Indore, Madhya Pradesh",
   email: "sgsitsmun@gmail.com",
@@ -79,8 +80,8 @@ export const committees = [
 ];
 
 export const secretariat = [
-  { name: "Rohan Singhal", role: "Secretary General", quote: "We welcome you to SGSITS MUN 2026!", image: "/assets/placeholder-avatar.png" },
-  { name: "Anya Agrawal", role: "Deputy Secretary General", quote: "Together, we will make this event a success.", image: "/assets/placeholder-avatar.png" },
+  { name: "Surya Pratap Singh", role: "MUN-Coordinator", quote: "Leading the organization with vision and dedication", image: "/assets/Surya.jpg" },
+  { name: "Alkesh Rajput", role: "USG-Logistics", quote: "Ensuring everything runs smoothly behind the scenes", image: "/assets/Alkesh.jpg" },
   // Add remaining secretariat members here
 ];
 

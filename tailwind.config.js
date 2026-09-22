@@ -8,10 +8,10 @@ module.exports = {
         navy: "#082052",
       },
       fontFamily: {
-        display: ["Playfair Display", "serif"],
-        body: ["Space Grotesk", "sans-serif"],
+        display: ["Metropolis", "sans-serif"],
+        body: ["Metropolis", "sans-serif"],
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

@@ -1,0 +1,159 @@
+.board {
+  --flap-face: #1b3a6b;
+  --flap-foot: #142d55;
+  --flap-ink: var(--cream);
+  --flap-hinge: rgba(0, 0, 0, 0.38);
+  --flap-seam: rgba(248, 240, 229, 0.12);
+  --flap-lift: 0 6px 16px rgba(0, 0, 0, 0.3);
+  --flap-shade: #000;
+
+  --flap-dur: 240ms;
+  --flap-ease: cubic-bezier(0.34, 0.08, 0.64, 0.3);
+
+  --fw: clamp(21px, 6.8vw, 50px);
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--fw) * 0.44); /* keeps the board an even width */
+}
+
+.board[data-skin="cream"] {
+  --flap-face: #fdf8f1;
+  --flap-foot: #e8dac4;
+  --flap-ink: var(--navy);
+  --flap-hinge: rgba(8, 32, 82, 0.24);
+  --flap-seam: rgba(255, 255, 255, 0.6);
+  --flap-lift: 0 6px 16px rgba(8, 32, 82, 0.22);
+  --flap-shade: var(--navy);
+}
+
+.board[data-intro] {
+  --flap-dur: 48ms; /* match INTRO_STEP_MS */
+  --flap-ease: linear;
+}
+
+.wrap {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+}
+
+.digits {
+  display: flex;
+  gap: calc(var(--fw) * 0.12);
+}
+
+.flap {
+  position: relative;
+  width: var(--fw);
+  height: calc(var(--fw) * 1.5);
+  perspective: calc(var(--fw) * 5);
+  border-radius: calc(var(--fw) * 0.14);
+  box-shadow: var(--flap-lift);
+  -webkit-font-smoothing: antialiased;
+}
+
+.half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  color: var(--flap-ink);
+  background-image: linear-gradient(var(--flap-face), var(--flap-foot));
+  background-size: 100% 200%;
+}
+
+.top {
+  top: 0;
+  background-position: 0 0;
+  border-radius: calc(var(--fw) * 0.14) calc(var(--fw) * 0.14) 0 0;
+  box-shadow: inset 0 -1px 0 var(--flap-hinge); /* a border would split the digit */
+}
+
+.bot {
+  bottom: 0;
+  background-position: 0 100%;
+  border-radius: 0 0 calc(var(--fw) * 0.14) calc(var(--fw) * 0.14);
+  box-shadow: inset 0 1px 0 var(--flap-seam);
+}
+
+.half span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--fw) * 0.86);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.top span { top: 0; }
+.bot span { top: -100%; }
+
+/* no overflow/opacity/filter here: flattens the 3D */
+.leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  transform-origin: 50% 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  animation: fall var(--flap-dur) var(--flap-ease) forwards;
+}
+
+.leaf .half {
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.leaf .bot {
+  top: 0;
+  bottom: auto;
+  transform: rotateX(180deg);
+}
+
+.leaf .half::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--flap-shade);
+  animation: shadeFront var(--flap-dur) var(--flap-ease) forwards;
+}
+
+.leaf .bot::after {
+  animation-name: shadeBack;
+}
+
+@keyframes fall {
+  to { transform: rotateX(-180deg); }
+}
+
+@keyframes shadeFront {
+  from { opacity: 0; }
+  to { opacity: 0.38; }
+}
+
+@keyframes shadeBack {
+  from { opacity: 0.38; }
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .board { --flap-dur: 1ms; }
+}

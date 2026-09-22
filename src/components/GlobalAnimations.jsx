@@ -4,27 +4,63 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Duration must stay well above the gap or the cards resolve one at a time and stutter.
+const CARD_DURATION = 0.65;
+const CARD_GAP = 0.08;
+
 export default function GlobalAnimations() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        const grids = gsap.utils.toArray(".grid");
-        grids.forEach((grid) => {
-            const items = grid.querySelectorAll(".grid-item");
-            if (items.length > 0) {
-                gsap.from(items, {
-                    scale: 0,
-                    opacity: 0,
-                    duration: 0.4,
-                    stagger: { amount: 0.6, from: "center" },
-                    ease: "back.out(1.7)",
-                    scrollTrigger: {
-                        trigger: grid,
-                        start: "top 80%",
-                    },
+        const ctx = gsap.context(() => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.utils.toArray("[data-reveal-group]").forEach((group) => {
+                    const items = group.querySelectorAll(":scope > [data-reveal]");
+                    if (!items.length) return;
+
+                    // from() would bake opacity:0 in as the destination on refresh.
+                    gsap.fromTo(
+                        items,
+                        { y: 24, opacity: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            duration: CARD_DURATION,
+                            // each, not amount: amount divides by card count and desyncs sections.
+                            stagger: { each: CARD_GAP, from: "start" },
+                            ease: "power3.out",
+                            // No immediateRender:false — it defers hiding to trigger time, so cards pop.
+                            scrollTrigger: { trigger: group, start: "top 85%", once: true },
+                        }
+                    );
                 });
-            }
+            });
         });
+
+        const refresh = () => ScrollTrigger.refresh();
+
+        // Recalculate trigger positions once the page is fully loaded — images,
+        // fonts, and the GSAP-pinned ImageShowcase section can all shift layout
+        // after ScrollTrigger's first measurement.
+        if (document.readyState === "complete") {
+            refresh();
+        } else {
+            window.addEventListener("load", refresh);
+        }
+
+        // Self-hosted Metropolis uses font-display:swap, so the fallback font
+        // renders first and text reflows once Metropolis loads in — that shift
+        // happens after ScrollTrigger's initial measurement too.
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(refresh);
+        }
+
+        return () => {
+            ctx.revert();
+            window.removeEventListener("load", refresh);
+        };
     }, []);
 
     return null;
