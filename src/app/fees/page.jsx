@@ -15,7 +15,7 @@ export default function FeesPage() {
           <div key={pkg.name} className="border border-navy/15 rounded-2xl p-6 flex flex-col gap-4">
             <div>
               <h3 className="font-display text-xl">{pkg.name}</h3>
-              <p className="text-2xl font-semibold mt-1">{pkg.price}</p>
+              {/* <p className="text-2xl font-semibold mt-1">{pkg.price}</p> */}
             </div>
             <ul className="flex flex-col gap-2 text-sm text-navy/70">
               {pkg.features.map((f) => (
