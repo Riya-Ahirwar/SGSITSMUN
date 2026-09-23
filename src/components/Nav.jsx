@@ -124,10 +124,12 @@ export default function Nav() {
           </a>
 
           <a
-            href="/#register"
+            href="https://forms.gle/7wArNn3jcDDJgD2j7"
+            target="_blank"
+            rel="noopener noreferrer"
             className="border border-cream/50 px-5 py-2 rounded-full font-semibold hover:bg-cream hover:text-navy hover:shadow-[0_0_20px_rgba(248,240,229,0.35)] hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            Apply Now
+            Register Now
           </a>
         </div>
       </div>
@@ -143,8 +145,13 @@ export default function Nav() {
           <a href="/delegate-conduct">Delegate Conduct</a>
           <a href="/past-editions">Past Editions</a>
           <a href="/#contact">Commitment</a>
-          <a href="/#register" className="border border-cream/50 px-5 py-2 rounded-full text-center font-semibold">
-            Apply Now
+          <a
+            href="https://forms.gle/7wArNn3jcDDJgD2j7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-cream/50 px-5 py-2 rounded-full text-center font-semibold"
+          >
+            Register Now
           </a>
         </div>
       )}
