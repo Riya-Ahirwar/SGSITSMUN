@@ -99,24 +99,26 @@ export const conferenceLeadership = [
     image: "/assets/secretariat/nikunj.jpg",
   },
   {
-    name: "ANYA AGRAWAL",
-    role: "DEPUTY GENERAL",
-    bio: "Supporting the Secretariat in shaping a seamless conference experience.",
-    image: "/assets/secretariat/anya.jpg",
-  },
-  
-];
-
-export const executiveTeam = [
-  {
     name: "ALKESH RAJPUT",
     role: "USG — LOGISTICS & HOSPITALITY",
     image: "/assets/secretariat/alkesh.jpg",
   },
+  
+  
+];
+
+export const executiveTeam = [
+  
   {
     name: "YASHVARDHAN PATEL",
     role: "USG — TECH AFFAIRS",
     image: "/assets/secretariat/yash.jpg",
+  },
+  {
+    name: "ANYA AGRAWAL",
+    role: "DEPUTY GENERAL",
+    bio: "Supporting the Secretariat in shaping a seamless conference experience.",
+    image: "/assets/secretariat/anya.jpg",
   },
   {
     name: "VENKATESH",
