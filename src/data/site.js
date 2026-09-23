@@ -87,7 +87,7 @@ export const conferenceLeadership = [
     image: "/assets/secretariat/rohan.jpg",
   },
   {
-    name: "SURYA SINGH",
+    name: "SURYA PRATAP SINGH",
     role: "MUN COORDINATOR",
     bio: "Connecting people, teams and operations to bring the conference together.",
     image: "/assets/secretariat/surya.jpg",
