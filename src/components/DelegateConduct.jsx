@@ -1,6 +1,3 @@
-"use client";
-import { useEffect, useRef } from "react";
-
 /* ── data ─────────────────────────────────────────────── */
 const rules = [
   {
@@ -52,144 +49,28 @@ const rules = [
 
 /* ── component ────────────────────────────────────────── */
 export default function DelegateConduct() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    let gsap, ScrollTrigger;
-    let ctx;
-
-    async function init() {
-      try {
-        const mod = await import("gsap");
-        const stMod = await import("gsap/ScrollTrigger");
-        gsap = mod.gsap || mod.default;
-        ScrollTrigger = stMod.ScrollTrigger || stMod.default;
-        gsap.registerPlugin(ScrollTrigger);
-      } catch {
-        return; // GSAP not available — degrade gracefully
-      }
-
-      const root = sectionRef.current;
-      if (!root) return;
-
-      ctx = gsap.context(() => {
-        /* ── hero text stagger ── */
-        gsap.from("[data-hero-el]", {
-          y: 40,
-          opacity: 0,
-          duration: 0.9,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: "[data-hero-section]",
-            start: "top 80%",
-          },
-        });
-
-        /* ── rule cards stagger in ── */
-        const cards = root.querySelectorAll("[data-rule-card]");
-        cards.forEach((card, i) => {
-          gsap.from(card, {
-            y: 60,
-            opacity: 0,
-            duration: 0.7,
-            delay: i * 0.06,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 88%",
-            },
-          });
-        });
-
-        /* ── number counter slide ── */
-        const nums = root.querySelectorAll("[data-rule-num]");
-        nums.forEach((num) => {
-          gsap.from(num, {
-            x: -30,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: num,
-              start: "top 90%",
-            },
-          });
-        });
-
-        /* ── closing section ── */
-        gsap.from("[data-closing]", {
-          y: 50,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: "[data-closing]",
-            start: "top 85%",
-          },
-        });
-
-        /* ── divider line draw ── */
-        const dividers = root.querySelectorAll("[data-divider]");
-        dividers.forEach((d) => {
-          gsap.from(d, {
-            scaleX: 0,
-            transformOrigin: "left center",
-            duration: 0.8,
-            ease: "power2.inOut",
-            scrollTrigger: {
-              trigger: d,
-              start: "top 92%",
-            },
-          });
-        });
-      }, root);
-    }
-
-    init();
-    return () => ctx?.revert();
-  }, []);
-
   return (
-    <div ref={sectionRef} className="bg-cream text-navy">
+    <div className="bg-cream text-navy">
       {/* ══════════ HERO ══════════ */}
-      <section
-        data-hero-section
-        className="bg-navy text-cream px-6 pt-32 pb-20 md:pt-40 md:pb-28"
-      >
+      <section className="bg-navy text-cream px-6 pt-32 pb-20 md:pt-40 md:pb-28">
         <div className="max-w-4xl mx-auto">
-          <p
-            data-hero-el
-            className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/75 font-semibold mb-6"
-          >
+          <p className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/75 font-semibold mb-6">
             Delegate Desk
           </p>
-          <h1
-            data-hero-el
-            className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.08] font-bold mb-6 tracking-tight"
-          >
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.08] font-bold mb-6 tracking-tight">
             DELEGATE CODE
             <br />
             OF CONDUCT
           </h1>
-          <p
-            data-hero-el
-            className="text-cream text-lg md:text-xl font-bold max-w-2xl leading-relaxed mb-4"
-          >
+          <p className="text-cream text-lg md:text-xl font-bold max-w-2xl leading-relaxed mb-4">
             The standard we expect.
           </p>
-          <p
-            data-hero-el
-            className="text-cream/85 text-base md:text-lg max-w-2xl leading-relaxed font-normal"
-          >
+          <p className="text-cream/85 text-base md:text-lg max-w-2xl leading-relaxed font-normal">
             SGSITS MUN 2026 is built on debate, discipline and mutual respect.
             Every delegate is expected to conduct themselves accordingly —
             inside committee, across the venue and throughout the conference.
           </p>
-          <p
-            data-hero-el
-            className="text-cream/75 text-sm md:text-base max-w-2xl leading-relaxed mt-4 italic font-medium"
-          >
+          <p className="text-cream/75 text-sm md:text-base max-w-2xl leading-relaxed mt-4 italic font-medium">
             These standards apply to every participant and are not merely
             guidelines. Violations may result in removal from the conference
             and/or disqualification from awards.
@@ -203,26 +84,21 @@ export default function DelegateConduct() {
           {rules.map((rule, idx) => (
             <div key={rule.num}>
               {/* divider */}
-              <div
-                data-divider
-                className="h-px bg-navy/20 w-full"
-              />
+              <div className="h-px bg-navy/20 w-full" />
 
               {/* card */}
               <div
-                data-rule-card
                 className="group relative py-8 md:py-10 flex gap-5 md:gap-8 items-start
                            rounded-2xl px-4 md:px-6 -mx-4 md:-mx-6
-                           transition-all duration-500 ease-out
+                           transition-all duration-300 ease-out
                            hover:bg-navy/[0.05] hover:shadow-[0_4px_30px_rgba(8,32,82,0.08)]
                            hover:scale-[1.005] cursor-default"
               >
                 {/* number */}
                 <span
-                  data-rule-num
                   className="font-display text-3xl md:text-4xl font-bold text-navy/35
                              group-hover:text-navy
-                             transition-colors duration-500 select-none
+                             transition-colors duration-300 select-none
                              min-w-[3.5rem] pt-0.5"
                 >
                   {rule.num}
@@ -253,13 +129,13 @@ export default function DelegateConduct() {
                   className="absolute left-0 top-8 bottom-8 w-[4px] rounded-full
                              bg-[#7eb8f7] scale-y-0 origin-top
                              group-hover:scale-y-100
-                             transition-transform duration-500 ease-out"
+                             transition-transform duration-300 ease-out"
                 />
               </div>
 
               {/* last divider */}
               {idx === rules.length - 1 && (
-                <div data-divider className="h-px bg-navy/20 w-full" />
+                <div className="h-px bg-navy/20 w-full" />
               )}
             </div>
           ))}
@@ -268,7 +144,7 @@ export default function DelegateConduct() {
 
       {/* ══════════ CLOSING — OUR STANDARD ══════════ */}
       <section className="bg-navy text-cream px-6 py-20 md:py-28">
-        <div data-closing className="max-w-3xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
           <p className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/70 font-semibold mb-5">
             Our Standard
           </p>
