@@ -5,7 +5,6 @@ import Image from "next/image";
 const dropdowns = {
   "Delegate Desk": [
     { label: "Committees", href: "/#committees" },
-    { label: "Fees & Packages", href: "/fees" },
     { label: "Awards", href: "/awards" },
     { label: "Delegate Conduct", href: "/delegate-conduct" },
   ],
@@ -140,7 +139,6 @@ export default function Nav() {
           <a href="/what-is-mun">What is MUN?</a>
           <a href="/#committees">Committees</a>
           <a href="/#secretariat">Secretariat</a>
-          <a href="/fees">Fees & Packages</a>
           <a href="/awards">Awards</a>
           <a href="/delegate-conduct">Delegate Conduct</a>
           <a href="/past-editions">Past Editions</a>

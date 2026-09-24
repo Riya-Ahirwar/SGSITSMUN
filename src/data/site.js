@@ -155,23 +155,6 @@ export const story = {
   ],
 };
 
-export const feePackages = [
-  {
-    name: "Individual Delegate",
-    price: "",
-    features: ["Committee placement", "Delegate kit", "Both conference days", "Certificate of participation"],
-  },
-  {
-    name: "School / College Delegation",
-    price: "Contact us",
-    features: ["Bulk delegate placements", "Dedicated coordinator", "Group certificate", "Faculty advisor pass"],
-  },
-  {
-    name: "Executive Board",
-    price: "Applications only",
-    features: ["Chair or Rapporteur role", "EB briefing sessions", "Certificate + letter of recommendation"],
-  },
-];
 
 export const awardsList = [
   { title: "Best Delegate", desc: "Awarded per committee to the delegate who combined argument, strategy and diplomacy best." },
