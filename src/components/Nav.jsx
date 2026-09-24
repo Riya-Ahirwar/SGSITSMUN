@@ -118,7 +118,7 @@ export default function Nav() {
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#7eb8f7] transition-all duration-300 group-hover:w-full rounded-full" />
           </a>
           <a href="/#contact" className="relative py-1 text-cream/80 hover:text-cream transition-colors duration-200 group">
-            Commitment
+            Contact Us
             <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#7eb8f7] transition-all duration-300 group-hover:w-full rounded-full" />
           </a>
 
@@ -142,7 +142,7 @@ export default function Nav() {
           <a href="/awards">Awards</a>
           <a href="/delegate-conduct">Delegate Conduct</a>
           <a href="/past-editions">Past Editions</a>
-          <a href="/#contact">Commitment</a>
+          <a href="/#contact">Contact Us</a>
           <a
             href="https://forms.gle/7wArNn3jcDDJgD2j7"
             target="_blank"
