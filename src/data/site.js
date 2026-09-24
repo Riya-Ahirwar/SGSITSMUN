@@ -87,10 +87,10 @@ export const conferenceLeadership = [
     image: "/assets/secretariat/rohan.jpg",
   },
   {
-    name: "SURYA PRATAP SINGH",
-    role: "MUN COORDINATOR",
-    bio: "Connecting people, teams and operations to bring the conference together.",
-    image: "/assets/secretariat/surya.jpg",
+    name: "ANYA AGRAWAL",
+    role: "ADDITIONAL SECRETARY GENERAL",
+    bio: "Supporting the Secretariat and ensuring seamless coordination across teams.",
+    image: "/assets/secretariat/anya.jpg",
   },
   {
     name: "NIKUNJ AGRAWAL",
@@ -99,43 +99,37 @@ export const conferenceLeadership = [
     image: "/assets/secretariat/nikunj.jpg",
   },
   {
-    name: "ALKESH RAJPUT",
-    role: "USG — LOGISTICS & HOSPITALITY",
-    image: "/assets/secretariat/alkesh.jpg",
+    name: "SURYA PRATAP SINGH",
+    role: "MUN COORDINATOR",
+    bio: "Connecting people, teams and operations to bring the conference together.",
+    image: "/assets/secretariat/surya.jpg",
   },
-  
-  
 ];
 
 export const executiveTeam = [
-  
   {
     name: "YASHVARDHAN PATEL",
-    role: "USG — TECH AFFAIRS",
+    role: "USG - TECH AFFAIRS",
     image: "/assets/secretariat/yash.jpg",
   },
   {
-    name: "ANYA AGRAWAL",
-    role: "DEPUTY GENERAL",
-    bio: "Supporting the Secretariat in shaping a seamless conference experience.",
-    image: "/assets/secretariat/anya.jpg",
+    name: "ALKESH RAJPUT",
+    role: "USG - LOGISTICS & HOSPITALITY",
+    image: "/assets/secretariat/alkesh.jpg",
   },
   {
     name: "VENKATESH",
-    role: "USG — LOGISTICS & HOSPITALITY",
+    role: "USG - LOGISTICS & HOSPITALITY",
     image: "/assets/secretariat/venkatesh.jpg",
   },
   {
     name: "RAJIV PARA",
-    role: "USG — DELEGATE AFFAIRS",
+    role: "USG - DELEGATE AFFAIRS",
     image: "/assets/secretariat/rajiv.jpg",
   },
-  
-  
-  
   {
     name: "SAHARSH SINGH",
-    role: "USG — INTERNATIONAL PRESS",
+    role: "USG - INTERNATIONAL PRESS",
     image: "/assets/secretariat/saharsh.jpg",
   },
 ];
