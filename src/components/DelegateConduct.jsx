@@ -160,13 +160,13 @@ export default function DelegateConduct() {
         <div className="max-w-4xl mx-auto">
           <p
             data-hero-el
-            className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/50 font-medium mb-6"
+            className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/75 font-semibold mb-6"
           >
             Delegate Desk
           </p>
           <h1
             data-hero-el
-            className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.08] mb-6"
+            className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.08] font-bold mb-6 tracking-tight"
           >
             DELEGATE CODE
             <br />
@@ -174,15 +174,13 @@ export default function DelegateConduct() {
           </h1>
           <p
             data-hero-el
-            className="text-cream/60 text-base md:text-lg max-w-2xl leading-relaxed mb-4"
+            className="text-cream text-lg md:text-xl font-bold max-w-2xl leading-relaxed mb-4"
           >
-            <span className="text-cream font-semibold">
-              The standard we expect.
-            </span>
+            The standard we expect.
           </p>
           <p
             data-hero-el
-            className="text-cream/50 text-sm md:text-base max-w-2xl leading-relaxed"
+            className="text-cream/85 text-base md:text-lg max-w-2xl leading-relaxed font-normal"
           >
             SGSITS MUN 2026 is built on debate, discipline and mutual respect.
             Every delegate is expected to conduct themselves accordingly —
@@ -190,7 +188,7 @@ export default function DelegateConduct() {
           </p>
           <p
             data-hero-el
-            className="text-cream/40 text-sm md:text-base max-w-2xl leading-relaxed mt-4 italic"
+            className="text-cream/75 text-sm md:text-base max-w-2xl leading-relaxed mt-4 italic font-medium"
           >
             These standards apply to every participant and are not merely
             guidelines. Violations may result in removal from the conference
@@ -207,7 +205,7 @@ export default function DelegateConduct() {
               {/* divider */}
               <div
                 data-divider
-                className="h-px bg-navy/10 w-full"
+                className="h-px bg-navy/20 w-full"
               />
 
               {/* card */}
@@ -216,16 +214,16 @@ export default function DelegateConduct() {
                 className="group relative py-8 md:py-10 flex gap-5 md:gap-8 items-start
                            rounded-2xl px-4 md:px-6 -mx-4 md:-mx-6
                            transition-all duration-500 ease-out
-                           hover:bg-navy/[0.04] hover:shadow-[0_4px_30px_rgba(8,32,82,0.06)]
+                           hover:bg-navy/[0.05] hover:shadow-[0_4px_30px_rgba(8,32,82,0.08)]
                            hover:scale-[1.005] cursor-default"
               >
                 {/* number */}
                 <span
                   data-rule-num
-                  className="font-display text-3xl md:text-4xl text-navy/15
-                             group-hover:text-navy/40
+                  className="font-display text-3xl md:text-4xl font-bold text-navy/35
+                             group-hover:text-navy
                              transition-colors duration-500 select-none
-                             min-w-[3rem] pt-0.5"
+                             min-w-[3.5rem] pt-0.5"
                 >
                   {rule.num}
                 </span>
@@ -233,17 +231,17 @@ export default function DelegateConduct() {
                 {/* content */}
                 <div className="flex-1">
                   <h3
-                    className="font-display text-lg md:text-xl tracking-wide mb-3
-                               group-hover:text-[#082052]
-                               transition-colors duration-400"
+                    className="font-display text-xl md:text-2xl font-bold tracking-wide text-navy mb-3
+                               group-hover:text-[#040e24]
+                               transition-colors duration-300"
                   >
                     {rule.title}
                   </h3>
                   {rule.body.split("\n\n").map((para, pi) => (
                     <p
                       key={pi}
-                      className="text-navy/65 text-sm md:text-[15px] leading-relaxed mb-3 last:mb-0
-                                 group-hover:text-navy/80 transition-colors duration-400"
+                      className="text-navy/90 font-normal text-base md:text-[16px] leading-relaxed mb-3 last:mb-0
+                                 group-hover:text-navy transition-colors duration-300"
                     >
                       {para}
                     </p>
@@ -252,7 +250,7 @@ export default function DelegateConduct() {
 
                 {/* hover accent bar */}
                 <div
-                  className="absolute left-0 top-8 bottom-8 w-[3px] rounded-full
+                  className="absolute left-0 top-8 bottom-8 w-[4px] rounded-full
                              bg-[#7eb8f7] scale-y-0 origin-top
                              group-hover:scale-y-100
                              transition-transform duration-500 ease-out"
@@ -261,7 +259,7 @@ export default function DelegateConduct() {
 
               {/* last divider */}
               {idx === rules.length - 1 && (
-                <div data-divider className="h-px bg-navy/10 w-full" />
+                <div data-divider className="h-px bg-navy/20 w-full" />
               )}
             </div>
           ))}
@@ -271,19 +269,19 @@ export default function DelegateConduct() {
       {/* ══════════ CLOSING — OUR STANDARD ══════════ */}
       <section className="bg-navy text-cream px-6 py-20 md:py-28">
         <div data-closing className="max-w-3xl mx-auto text-center">
-          <p className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/40 font-medium mb-5">
+          <p className="uppercase tracking-[0.25em] text-xs md:text-sm text-cream/70 font-semibold mb-5">
             Our Standard
           </p>
-          <h2 className="font-display text-3xl md:text-5xl leading-tight mb-8">
+          <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight mb-8">
             Debate fiercely.
             <br />
             Conduct yourself respectfully.
           </h2>
-          <p className="text-cream/55 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-6">
+          <p className="text-cream/90 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-6 font-medium">
             SGSITS MUN is a space for disagreement, negotiation and competition
             — but never at the expense of another person&apos;s dignity or safety.
           </p>
-          <p className="text-cream/40 text-xs md:text-sm leading-relaxed max-w-2xl mx-auto italic">
+          <p className="text-cream/75 text-sm md:text-base leading-relaxed max-w-2xl mx-auto italic font-normal">
             By registering for SGSITS MUN 2026, every participant agrees to
             abide by these standards and to cooperate with the Secretariat and
             Executive Board in maintaining a safe, respectful and professional
